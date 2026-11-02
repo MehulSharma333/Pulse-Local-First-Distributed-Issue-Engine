@@ -190,7 +190,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                       </div>
 
                       {/* Title */}
-                      <h4 className="text-xs font-semibold text-[#16291a] line-clamp-2 leading-relaxed">
+                      <h4 className="text-xs font-normal text-[#16291a] line-clamp-2 leading-relaxed">
                         {issue.title}
                       </h4>
 
@@ -218,20 +218,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                           <span />
                         )}
 
-                        {issue.assignee ? (
-                          <div
-                            title={issue.assignee.name}
-                            className="w-5 h-5 rounded-full overflow-hidden ring-2 ring-[#d2e6d6]"
-                          >
-                            <img
-                              src={issue.assignee.avatar}
-                              alt={issue.assignee.name}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        ) : (
-                          <span className="text-[10px] text-[#6a994e] italic">Unassigned</span>
-                        )}
+                       
                       </div>
                     </div>
                   );

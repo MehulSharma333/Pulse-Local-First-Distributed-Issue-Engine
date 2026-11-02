@@ -8,7 +8,6 @@ import {
   ListFilter, 
   RotateCcw, 
   RotateCw,
-  Zap,
   Plus
 } from 'lucide-react';
 import { useSyncStatus } from '../hooks/useSyncStatus';
@@ -40,10 +39,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Brand & View Switcher */}
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2.5">
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-[#e1ecda] border border-[#a4cdac] text-[#16291a] shadow-xs">
-            <Zap className="w-4 h-4 fill-[#6a994e] text-[#223d27]" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#386641] animate-pulse" />
-          </div>
+         
           <div>
             <div className="flex items-center gap-2">
               <span className="font-cinzel font-bold text-[#16291a] tracking-wider text-base">PULSE</span>
