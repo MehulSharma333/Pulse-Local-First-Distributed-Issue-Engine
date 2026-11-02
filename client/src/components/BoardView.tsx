@@ -20,41 +20,83 @@ interface BoardViewProps {
   onOpenCreateWithStatus: (status: IssueStatus) => void;
 }
 
-const COLUMNS: { id: IssueStatus; title: string; color: string; icon: React.ReactNode }[] = [
-  { id: 'backlog', title: 'Backlog', color: 'border-zinc-700/60', icon: <HelpCircle className="w-3.5 h-3.5 text-zinc-400" /> },
-  { id: 'todo', title: 'Todo', color: 'border-blue-500/40', icon: <Circle className="w-3.5 h-3.5 text-blue-400" /> },
-  { id: 'in_progress', title: 'In Progress', color: 'border-amber-500/40', icon: <Clock className="w-3.5 h-3.5 text-amber-400" /> },
-  { id: 'in_review', title: 'In Review', color: 'border-purple-500/40', icon: <ArrowRight className="w-3.5 h-3.5 text-purple-400" /> },
-  { id: 'done', title: 'Done', color: 'border-emerald-500/40', icon: <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> },
+const COLUMNS: { 
+  id: IssueStatus; 
+  title: string; 
+  bg: string;
+  border: string;
+  accent: string;
+  icon: React.ReactNode 
+}[] = [
+  { 
+    id: 'backlog', 
+    title: 'Backlog', 
+    bg: 'bg-[#f5f0f8]/90', 
+    border: 'border-[#e0d2e9]', 
+    accent: 'text-[#824ea1]',
+    icon: <HelpCircle className="w-3.5 h-3.5 text-[#824ea1]" /> 
+  },
+  { 
+    id: 'todo', 
+    title: 'Todo', 
+    bg: 'bg-[#f2f9ff]/90', 
+    border: 'border-[#d8ecfe]', 
+    accent: 'text-[#035eaf]',
+    icon: <Circle className="w-3.5 h-3.5 text-[#035eaf]" /> 
+  },
+  { 
+    id: 'in_progress', 
+    title: 'In Progress', 
+    bg: 'bg-[#edf6ff]/90', 
+    border: 'border-[#c8e4ff]', 
+    accent: 'text-[#0056a7]',
+    icon: <Clock className="w-3.5 h-3.5 text-[#0056a7]" /> 
+  },
+  { 
+    id: 'in_review', 
+    title: 'In Review', 
+    bg: 'bg-[#fff4f8]/90', 
+    border: 'border-[#ffddea]', 
+    accent: 'text-[#b60046]',
+    icon: <ArrowRight className="w-3.5 h-3.5 text-[#b60046]" /> 
+  },
+  { 
+    id: 'done', 
+    title: 'Done', 
+    bg: 'bg-[#f4faf6]/90', 
+    border: 'border-[#d2edd9]', 
+    accent: 'text-[#0f763e]',
+    icon: <CheckCircle2 className="w-3.5 h-3.5 text-[#0f763e]" /> 
+  },
 ];
 
 function PriorityBadge({ priority }: { priority: IssuePriority }) {
   switch (priority) {
     case 'urgent':
       return (
-        <span className="flex items-center gap-1 text-[10px] font-semibold text-red-400 bg-red-950/50 border border-red-800/40 px-1.5 py-0.5 rounded">
-          <Flame className="w-3 h-3 text-red-400" />
+        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#5b0023] bg-[#ffe9f1] border border-[#ffd2e3] px-2 py-0.5 rounded-full">
+          <Flame className="w-3 h-3 text-[#ff116c]" />
           Urgent
         </span>
       );
     case 'high':
       return (
-        <span className="flex items-center gap-1 text-[10px] font-semibold text-amber-400 bg-amber-950/50 border border-amber-800/40 px-1.5 py-0.5 rounded">
-          <ArrowUp className="w-3 h-3 text-amber-400" />
+        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#56001f] bg-[#ffdeea] border border-[#ffbed6] px-2 py-0.5 rounded-full">
+          <ArrowUp className="w-3 h-3 text-[#ab003f]" />
           High
         </span>
       );
     case 'medium':
       return (
-        <span className="flex items-center gap-1 text-[10px] font-semibold text-blue-400 bg-blue-950/50 border border-blue-800/40 px-1.5 py-0.5 rounded">
-          <ArrowRight className="w-3 h-3 text-blue-400" />
+        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#012f57] bg-[#e5f3ff] border border-[#cbe6fe] px-2 py-0.5 rounded-full">
+          <ArrowRight className="w-3 h-3 text-[#035eaf]" />
           Med
         </span>
       );
     default:
       return (
-        <span className="flex items-center gap-1 text-[10px] font-medium text-zinc-400 bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 rounded">
-          <Minus className="w-3 h-3 text-zinc-500" />
+        <span className="flex items-center gap-1 text-[10px] font-medium text-[#57346b] bg-[#f5f0f8] border border-[#e0d2e9] px-2 py-0.5 rounded-full">
+          <Minus className="w-3 h-3 text-[#824ea1]" />
           Low
         </span>
       );
@@ -91,7 +133,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
   };
 
   return (
-    <div className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-[#090b12]">
+    <div className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-[#f7f5fa]">
       {COLUMNS.map((column) => {
         const columnIssues = issuesByStatus[column.id] || [];
 
@@ -100,18 +142,18 @@ export const BoardView: React.FC<BoardViewProps> = ({
             key={column.id}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, column.id)}
-            className="w-80 shrink-0 flex flex-col max-h-[calc(100vh-100px)] rounded-xl bg-[#10131e] border border-[#1e2333] shadow-lg shadow-black/20"
+            className={`w-80 shrink-0 flex flex-col max-h-[calc(100vh-100px)] rounded-2xl ${column.bg} border ${column.border} shadow-sm backdrop-blur-xs`}
           >
             {/* Column Header */}
-            <div className="p-3.5 border-b border-[#1e2333] flex items-center justify-between">
+            <div className={`p-3.5 border-b ${column.border} flex items-center justify-between`}>
               <div className="flex items-center gap-2">
-                <span className="p-1 rounded bg-[#161a29] border border-zinc-800/80">
+                <span className="p-1 rounded-lg bg-white/90 border border-white shadow-xs">
                   {column.icon}
                 </span>
-                <span className="text-xs font-semibold text-zinc-200 tracking-tight">
+                <span className="text-xs font-bold text-[#2b1a36] tracking-tight">
                   {column.title}
                 </span>
-                <span className="px-1.5 py-0.2 rounded-full bg-[#1b2030] text-[11px] font-mono text-zinc-400">
+                <span className={`px-2 py-0.5 rounded-full bg-white text-[11px] font-mono font-bold ${column.accent} shadow-xs`}>
                   {columnIssues.length}
                 </span>
               </div>
@@ -119,7 +161,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => onOpenCreateWithStatus(column.id)}
-                  className="p-1 rounded text-zinc-400 hover:text-white hover:bg-[#1a1f30] transition-colors"
+                  className="p-1 rounded-lg text-[#824ea1] hover:text-[#2b1a36] hover:bg-white/80 transition-colors"
                   title="Add issue to this column"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -128,14 +170,13 @@ export const BoardView: React.FC<BoardViewProps> = ({
             </div>
 
             {/* Column Cards Container */}
-            <div className="flex-1 p-2 space-y-2.5 overflow-y-auto min-h-[150px]">
+            <div className="flex-1 p-2.5 space-y-2.5 overflow-y-auto min-h-[160px]">
               {columnIssues.length === 0 ? (
-                <div className="h-32 border border-dashed border-[#23293b] rounded-lg flex items-center justify-center text-xs text-zinc-500">
+                <div className="h-32 border-2 border-dashed border-[#e0d2e9]/70 rounded-xl flex items-center justify-center text-xs font-medium text-[#a87ec1]">
                   Drop card here
                 </div>
               ) : (
                 columnIssues.map((issue) => {
-                  // Find if any remote peer is focused on this card
                   const viewingPeers = peers.filter((p) => p.activeIssueId === issue.id);
 
                   return (
@@ -144,30 +185,30 @@ export const BoardView: React.FC<BoardViewProps> = ({
                       draggable
                       onDragStart={(e) => handleDragStart(e, issue.id)}
                       onClick={() => onSelectIssue(issue)}
-                      className={`group relative p-3.5 rounded-lg bg-[#141824] hover:bg-[#181d2c] border cursor-grab active:cursor-grabbing transition-all shadow-sm hover:shadow-md hover:border-indigo-500/40 ${
+                      className={`group relative p-4 rounded-xl bg-white hover:bg-[#fffdfd] border cursor-grab active:cursor-grabbing transition-all shadow-xs hover:shadow-md hover:border-[#a87ec1] ${
                         viewingPeers.length > 0
-                          ? 'border-indigo-500 ring-1 ring-indigo-500/50'
-                          : 'border-[#222738]'
+                          ? 'border-[#ff116c] ring-2 ring-[#ffd2e3]'
+                          : 'border-[#ebe1f0]'
                       }`}
                     >
                       {/* Peer Viewing Indicator */}
                       {viewingPeers.length > 0 && (
-                        <div className="absolute -top-2 right-2 flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-indigo-950 border border-indigo-700 text-[10px] text-indigo-300">
-                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping" />
+                        <div className="absolute -top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#ffe9f1] border border-[#ff6ca4] text-[10px] font-semibold text-[#b60046] shadow-xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#ff116c] animate-ping" />
                           <span>{viewingPeers[0].name} viewing</span>
                         </div>
                       )}
 
                       {/* Key & Priority */}
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="font-mono text-[11px] font-semibold text-zinc-400 group-hover:text-indigo-400 transition-colors">
+                        <span className="font-mono text-[11px] font-bold text-[#824ea1] group-hover:text-[#57346b] transition-colors">
                           {issue.key}
                         </span>
                         <PriorityBadge priority={issue.priority} />
                       </div>
 
                       {/* Title */}
-                      <h4 className="text-xs font-medium text-zinc-200 line-clamp-2 leading-relaxed">
+                      <h4 className="text-xs font-semibold text-[#2b1a36] line-clamp-2 leading-relaxed">
                         {issue.title}
                       </h4>
 
@@ -177,7 +218,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                           {issue.labels.map((label, idx) => (
                             <span
                               key={idx}
-                              className="text-[10px] px-1.5 py-0.5 rounded bg-[#1c2235] text-zinc-400 border border-zinc-800"
+                              className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#f5f0f8] text-[#57346b] border border-[#e0d2e9]"
                             >
                               {label}
                             </span>
@@ -186,9 +227,9 @@ export const BoardView: React.FC<BoardViewProps> = ({
                       )}
 
                       {/* Footer: Estimate & Assignee */}
-                      <div className="mt-3 pt-2 border-t border-[#1e2334] flex items-center justify-between text-xs text-zinc-400">
+                      <div className="mt-3 pt-2.5 border-t border-[#f2edf5] flex items-center justify-between text-xs text-[#824ea1]">
                         {issue.estimate ? (
-                          <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-800 text-zinc-300">
+                          <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#e5f3ff] text-[#035eaf] border border-[#cbe6fe]">
                             {issue.estimate} pts
                           </span>
                         ) : (
@@ -198,7 +239,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                         {issue.assignee ? (
                           <div
                             title={issue.assignee.name}
-                            className="w-5 h-5 rounded-full overflow-hidden ring-1 ring-zinc-700"
+                            className="w-5 h-5 rounded-full overflow-hidden ring-2 ring-[#e0d2e9]"
                           >
                             <img
                               src={issue.assignee.avatar}
@@ -207,7 +248,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                             />
                           </div>
                         ) : (
-                          <span className="text-[10px] text-zinc-600">Unassigned</span>
+                          <span className="text-[10px] text-[#a87ec1] italic">Unassigned</span>
                         )}
                       </div>
                     </div>

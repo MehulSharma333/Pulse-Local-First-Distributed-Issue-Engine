@@ -1,27 +1,72 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --bg-primary: #090a0f;
-    --bg-secondary: #12141c;
-    --bg-card: #181b26;
-    --border-subtle: #242938;
-    --text-primary: #f3f4f6;
-    --text-secondary: #9ca3af;
-    --accent: #6366f1;
-  }
+@theme {
+  --color-thistle-DEFAULT: #cdb4db;
+  --color-thistle-100: #2b1a36;
+  --color-thistle-200: #57346b;
+  --color-thistle-300: #824ea1;
+  --color-thistle-400: #a87ec1;
+  --color-thistle-500: #cdb4db;
+  --color-thistle-600: #d6c2e2;
+  --color-thistle-700: #e0d2e9;
+  --color-thistle-800: #ebe1f0;
+  --color-thistle-900: #f5f0f8;
+
+  --color-pastel-petal-DEFAULT: #ffc8dd;
+  --color-pastel-petal-100: #5b0023;
+  --color-pastel-petal-200: #b60046;
+  --color-pastel-petal-300: #ff116c;
+  --color-pastel-petal-400: #ff6ca4;
+  --color-pastel-petal-500: #ffc8dd;
+  --color-pastel-petal-600: #ffd2e3;
+  --color-pastel-petal-700: #ffddea;
+  --color-pastel-petal-800: #ffe9f1;
+  --color-pastel-petal-900: #fff4f8;
+
+  --color-baby-pink-DEFAULT: #ffafcc;
+  --color-baby-pink-100: #56001f;
+  --color-baby-pink-200: #ab003f;
+  --color-baby-pink-300: #ff025f;
+  --color-baby-pink-400: #ff5895;
+  --color-baby-pink-500: #ffafcc;
+  --color-baby-pink-600: #ffbed6;
+  --color-baby-pink-700: #ffcee0;
+  --color-baby-pink-800: #ffdeea;
+  --color-baby-pink-900: #ffeff5;
+
+  --color-icy-blue-DEFAULT: #bde0fe;
+  --color-icy-blue-100: #012f57;
+  --color-icy-blue-200: #035eaf;
+  --color-icy-blue-300: #0f8dfb;
+  --color-icy-blue-400: #66b6fd;
+  --color-icy-blue-500: #bde0fe;
+  --color-icy-blue-600: #cbe6fe;
+  --color-icy-blue-700: #d8ecfe;
+  --color-icy-blue-800: #e5f3ff;
+  --color-icy-blue-900: #f2f9ff;
+
+  --color-sky-blue-DEFAULT: #a2d2ff;
+  --color-sky-blue-100: #002b54;
+  --color-sky-blue-200: #0056a7;
+  --color-sky-blue-300: #0082fb;
+  --color-sky-blue-400: #50aaff;
+  --color-sky-blue-500: #a2d2ff;
+  --color-sky-blue-600: #b6dcff;
+  --color-sky-blue-700: #c8e4ff;
+  --color-sky-blue-800: #daedff;
+  --color-sky-blue-900: #edf6ff;
 }
 
 body {
   margin: 0;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: #f7f5fa;
+  color: #2b1a36;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   overflow-x: hidden;
   user-select: none;
 }
 
-/* Custom sleek scrollbar */
+/* Custom sleek pastel scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -32,10 +77,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #272a37;
+  background: #d6c2e2;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f4459;
+  background: #a87ec1;
 }

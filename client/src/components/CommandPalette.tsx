@@ -33,14 +33,13 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     }
   }, [isOpen]);
 
-  // Quick actions when query matches or is empty
   const actions = useMemo(() => {
     return [
       {
         id: 'action-create',
         title: 'Create new issue',
         subtitle: 'Add a new task to your local-first workspace',
-        icon: <Plus className="w-4 h-4 text-indigo-400" />,
+        icon: <Plus className="w-4 h-4 text-[#824ea1]" />,
         run: () => {
           onClose();
           onOpenCreateIssue();
@@ -51,9 +50,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         title: stats.isSimulatedOffline ? 'Reconnect sync relay' : 'Simulate offline mode',
         subtitle: stats.isSimulatedOffline ? 'Resume WebSocket data stream' : 'Cut network to test local mutations',
         icon: stats.isSimulatedOffline ? (
-          <Wifi className="w-4 h-4 text-emerald-400" />
+          <Wifi className="w-4 h-4 text-[#035eaf]" />
         ) : (
-          <WifiOff className="w-4 h-4 text-amber-400" />
+          <WifiOff className="w-4 h-4 text-[#ff116c]" />
         ),
         run: () => {
           toggleSimulateOffline();
@@ -64,7 +63,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: 'action-view-board',
         title: 'Switch to Kanban Board',
         subtitle: 'Deterministic column transitions',
-        icon: <Kanban className="w-4 h-4 text-zinc-400" />,
+        icon: <Kanban className="w-4 h-4 text-[#824ea1]" />,
         run: () => {
           onViewChange('board');
           onClose();
@@ -74,7 +73,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: 'action-view-list',
         title: 'Switch to Virtualized List',
         subtitle: 'High-density table for 10k+ issues',
-        icon: <ListFilter className="w-4 h-4 text-zinc-400" />,
+        icon: <ListFilter className="w-4 h-4 text-[#824ea1]" />,
         run: () => {
           onViewChange('list');
           onClose();
@@ -83,7 +82,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     ];
   }, [stats.isSimulatedOffline, toggleSimulateOffline, onClose, onOpenCreateIssue, onViewChange]);
 
-  // Filtered issues
   const filteredIssues = useMemo(() => {
     if (!query.trim()) return [];
     const q = query.toLowerCase();
@@ -104,7 +102,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: issue.id,
         title: `${issue.key} • ${issue.title}`,
         subtitle: `${issue.status.toUpperCase()} • Priority: ${issue.priority}`,
-        icon: <Sparkles className="w-4 h-4 text-indigo-400" />,
+        icon: <Sparkles className="w-4 h-4 text-[#ff5895]" />,
         run: () => {
           onClose();
           onSelectIssue(issue);
@@ -113,7 +111,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     ];
   }, [actions, filteredIssues, query, onClose, onSelectIssue]);
 
-  // Handle keyboard arrow navigation & enter
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -135,16 +132,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-black/35 backdrop-blur-xs animate-in fade-in duration-150"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-xl rounded-xl bg-[#121522] border border-[#23293b] shadow-2xl overflow-hidden flex flex-col"
+        className="w-full max-w-xl rounded-2xl bg-white border border-[#e0d2e9] shadow-2xl overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 border-b border-[#23293b] bg-[#161a29]">
-          <Search className="w-4 h-4 text-zinc-400" />
+        <div className="flex items-center px-4 border-b border-[#e0d2e9] bg-[#f5f0f8]">
+          <Search className="w-4 h-4 text-[#824ea1]" />
           <input
             ref={inputRef}
             type="text"
@@ -155,9 +152,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             }}
             onKeyDown={handleKeyDown}
             placeholder="Type a command or search issues..."
-            className="w-full px-3 py-3.5 bg-transparent text-sm text-white placeholder-zinc-500 focus:outline-none"
+            className="w-full px-3 py-3.5 bg-transparent text-sm text-[#2b1a36] placeholder-[#a87ec1] focus:outline-none font-medium"
           />
-          <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-[#1f2438] text-zinc-400 border border-zinc-700 rounded">
+          <kbd className="px-2 py-0.5 text-[10px] font-mono bg-white text-[#57346b] border border-[#d6c2e2] rounded-md font-semibold">
             ESC
           </kbd>
         </div>
@@ -165,7 +162,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         {/* Results List */}
         <div className="max-h-96 overflow-y-auto p-2 space-y-1">
           {allItems.length === 0 ? (
-            <div className="px-4 py-8 text-center text-xs text-zinc-500">
+            <div className="px-4 py-8 text-center text-xs text-[#824ea1]">
               No matching commands or issues found
             </div>
           ) : (
@@ -174,18 +171,18 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 key={item.id}
                 onClick={item.run}
                 onMouseEnter={() => setSelectedIndex(idx)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors ${
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors ${
                   idx === selectedIndex
-                    ? 'bg-indigo-600/20 text-white border border-indigo-500/30'
-                    : 'text-zinc-300 hover:bg-[#1a1f30]'
+                    ? 'bg-[#f5f0f8] text-[#2b1a36] border border-[#cdb4db]'
+                    : 'text-[#57346b] hover:bg-[#faf8fd]'
                 }`}
               >
-                <div className="p-1 rounded bg-[#1e2338] border border-zinc-800 text-zinc-400">
+                <div className="p-1.5 rounded-lg bg-white border border-[#e0d2e9] text-[#824ea1] shadow-xs">
                   {item.icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-semibold truncate">{item.title}</div>
-                  <div className="text-[11px] text-zinc-400 truncate">{item.subtitle}</div>
+                  <div className="text-xs font-bold text-[#2b1a36] truncate">{item.title}</div>
+                  <div className="text-[11px] text-[#824ea1] truncate">{item.subtitle}</div>
                 </div>
               </div>
             ))
@@ -193,16 +190,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-2 border-t border-[#23293b] bg-[#141826] flex items-center justify-between text-[11px] text-zinc-500">
+        <div className="px-4 py-2.5 border-t border-[#e0d2e9] bg-[#f5f0f8] flex items-center justify-between text-[11px] text-[#57346b]">
           <div className="flex items-center gap-3">
             <span>
-              <kbd className="font-mono bg-zinc-800 px-1 py-0.5 rounded text-[10px] text-zinc-300">↑↓</kbd> navigate
+              <kbd className="font-mono bg-white border border-[#d6c2e2] px-1.5 py-0.5 rounded text-[10px] text-[#2b1a36] font-semibold">↑↓</kbd> navigate
             </span>
             <span>
-              <kbd className="font-mono bg-zinc-800 px-1 py-0.5 rounded text-[10px] text-zinc-300">↵</kbd> select
+              <kbd className="font-mono bg-white border border-[#d6c2e2] px-1.5 py-0.5 rounded text-[10px] text-[#2b1a36] font-semibold">↵</kbd> select
             </span>
           </div>
-          <span className="font-mono text-[10px] text-indigo-400">0ms local lookup</span>
+          <span className="font-mono text-[10px] font-bold text-[#824ea1]">0ms local lookup</span>
         </div>
       </div>
     </div>

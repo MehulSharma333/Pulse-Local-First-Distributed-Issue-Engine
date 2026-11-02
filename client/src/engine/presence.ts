@@ -8,7 +8,7 @@ const AVATARS = [
   'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100',
 ];
 
-const COLORS = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#8b5cf6'];
+const COLORS = ['#824ea1', '#ff116c', '#0f8dfb', '#a87ec1', '#ff6ca4', '#50aaff'];
 
 const randomId = 'user-' + Math.random().toString(36).substring(2, 7);
 const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];

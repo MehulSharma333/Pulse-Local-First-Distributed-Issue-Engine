@@ -10,3 +10,4 @@ export const whenIndexedDbSynced = new Promise<void>((resolve) => {
     resolve();
   });
 });
+

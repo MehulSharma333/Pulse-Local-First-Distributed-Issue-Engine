@@ -83,3 +83,4 @@ export function toggleSimulateOffline() {
   notifyListeners();
   return syncStats.isSimulatedOffline;
 }
+

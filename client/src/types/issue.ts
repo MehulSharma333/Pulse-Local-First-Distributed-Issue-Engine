@@ -43,3 +43,4 @@ export interface SyncStats {
   totalDeltasSent: number;
   totalBytes: number;
 }
+

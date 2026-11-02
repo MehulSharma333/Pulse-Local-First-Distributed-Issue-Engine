@@ -93,3 +93,4 @@ npm run dev
 > • Architected an offline-first issue tracker achieving sub-16ms interaction latency using **Yjs CRDTs**, **IndexedDB (y-indexeddb)**, and a lightweight **WebSocket sync relay**.  
 > • Implemented multi-client optimistic state reconciliation and conflict-free merging across concurrent edits, eliminating database lock contention and network waterfalls.  
 > • Engineered a Linear-style keyboard command palette (`Cmd+K`), a `Y.UndoManager` time-travel stack, and virtualized list views via **TanStack Virtual** for 10,000+ issues at 60 FPS.
+
