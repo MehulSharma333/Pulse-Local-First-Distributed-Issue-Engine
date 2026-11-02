@@ -1,0 +1,10 @@
+{
+  "name": "pulse-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix client",
+    "relay": "npm start --prefix server",
+    "build": "npm run build --prefix client"
+  }
+}
