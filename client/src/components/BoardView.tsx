@@ -18,6 +18,7 @@ interface BoardViewProps {
   onSelectIssue: (issue: Issue) => void;
   onMoveIssue: (id: string, newStatus: IssueStatus, targetOrder: number) => void;
   onOpenCreateWithStatus: (status: IssueStatus) => void;
+  hideBacklog?: boolean;
 }
 
 const COLUMNS: { 
@@ -90,9 +91,12 @@ export const BoardView: React.FC<BoardViewProps> = ({
   onSelectIssue,
   onMoveIssue,
   onOpenCreateWithStatus,
+  hideBacklog = false,
 }) => {
   const { peers } = usePresence();
   const [draggedIssueId, setDraggedIssueId] = useState<string | null>(null);
+
+  const displayedColumns = hideBacklog ? COLUMNS.filter((c) => c.id !== 'backlog') : COLUMNS;
 
   const handleDragStart = (e: React.DragEvent, id: string) => {
     e.dataTransfer.setData('text/plain', id);
@@ -116,7 +120,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
 
   return (
     <div className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-gradient-to-br from-[#faf6ec] via-[#f4edd9]/50 to-[#edf4dd]/60">
-      {COLUMNS.map((column) => {
+      {displayedColumns.map((column) => {
         const columnIssues = issuesByStatus[column.id] || [];
 
         return (

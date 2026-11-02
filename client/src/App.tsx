@@ -88,7 +88,8 @@ export function App() {
         if (!isMy) return false;
       }
       if (activeFilters.view === 'cycle') {
-        if (issue.status === 'cancelled') return false;
+        // Active sprint: excludes cold backlog and cancelled tickets
+        if (issue.status === 'backlog' || issue.status === 'cancelled') return false;
       }
       if (activeFilters.priority && issue.priority !== activeFilters.priority) {
         return false;
@@ -263,6 +264,7 @@ export function App() {
                 onSelectIssue={handleSelectIssue}
                 onMoveIssue={moveIssue}
                 onOpenCreateWithStatus={(status) => handleOpenCreateIssue(status, true)}
+                hideBacklog={activeFilters.view === 'cycle'}
               />
             ) : (
               <ListView
