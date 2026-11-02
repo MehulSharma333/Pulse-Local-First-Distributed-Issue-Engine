@@ -23,6 +23,7 @@ export function App() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isTelemetryOpen, setIsTelemetryOpen] = useState(false);
   const [isIssueModalOpen, setIsIssueModalOpen] = useState(false);
+  const [isStatusLocked, setIsStatusLocked] = useState(false);
   const [selectedIssue, setSelectedIssue] = useState<Issue | null>(null);
   const [initialStatusForNew, setInitialStatusForNew] = useState<IssueStatus>('todo');
 
@@ -79,7 +80,11 @@ export function App() {
   const filteredIssues = useMemo(() => {
     return issues.filter((issue) => {
       if (activeFilters.view === 'my') {
-        const isMy = issue.assignee?.id === localUser.id || issue.assignee?.name.toLowerCase().includes('alex') || issue.assignee?.name.toLowerCase().includes('me');
+        const isMy =
+          issue.assignee?.id === 'me' ||
+          issue.assignee?.id === localUser.id ||
+          issue.assignee?.name.toLowerCase().includes('me') ||
+          issue.assignee?.name.toLowerCase().includes('alex');
         if (!isMy) return false;
       }
       if (activeFilters.view === 'cycle') {
@@ -138,18 +143,25 @@ export function App() {
 
   const myIssuesCount = useMemo(() => {
     return issues.filter(
-      (i) => i.assignee?.id === localUser.id || i.assignee?.name.toLowerCase().includes('alex') || i.assignee?.name.toLowerCase().includes('me')
+      (i) =>
+        i.assignee?.id === 'me' ||
+        i.assignee?.id === localUser.id ||
+        i.assignee?.name.toLowerCase().includes('me') ||
+        i.assignee?.name.toLowerCase().includes('alex')
     ).length;
   }, [issues, localUser.id]);
 
-  const handleOpenCreateIssue = useCallback((status: IssueStatus = 'todo') => {
+  const handleOpenCreateIssue = useCallback((status: IssueStatus = 'todo', locked = false) => {
     setSelectedIssue(null);
     setInitialStatusForNew(status);
+    setIsStatusLocked(locked);
     setIsIssueModalOpen(true);
   }, []);
 
   const handleSelectIssue = useCallback((issue: Issue) => {
     setSelectedIssue(issue);
+    setInitialStatusForNew(issue.status);
+    setIsStatusLocked(false);
     setIsIssueModalOpen(true);
   }, []);
 
@@ -250,7 +262,7 @@ export function App() {
                 issuesByStatus={filteredIssuesByStatus}
                 onSelectIssue={handleSelectIssue}
                 onMoveIssue={moveIssue}
-                onOpenCreateWithStatus={handleOpenCreateIssue}
+                onOpenCreateWithStatus={(status) => handleOpenCreateIssue(status, true)}
               />
             ) : (
               <ListView
@@ -269,7 +281,7 @@ export function App() {
         onClose={() => setIsCommandPaletteOpen(false)}
         issues={issues}
         onSelectIssue={handleSelectIssue}
-        onOpenCreateIssue={() => handleOpenCreateIssue('todo')}
+        onOpenCreateIssue={() => handleOpenCreateIssue('todo', false)}
         onViewChange={setCurrentView}
       />
 
@@ -287,6 +299,8 @@ export function App() {
           setSelectedIssue(null);
         }}
         issue={selectedIssue}
+        initialStatus={selectedIssue ? selectedIssue.status : initialStatusForNew}
+        isStatusLocked={isStatusLocked}
         onSave={handleSaveIssue}
         onDelete={deleteIssue}
         onFocusIssue={setActiveIssueFocus}
