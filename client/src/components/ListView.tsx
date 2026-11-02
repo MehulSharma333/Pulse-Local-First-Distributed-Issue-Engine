@@ -12,26 +12,26 @@ interface ListViewProps {
 function StatusIcon({ status }: { status: IssueStatus }) {
   switch (status) {
     case 'done':
-      return <CheckCircle2 className="w-3.5 h-3.5 text-[#0f763e]" />;
+      return <CheckCircle2 className="w-3.5 h-3.5 text-[#223d27]" />;
     case 'in_progress':
-      return <Clock className="w-3.5 h-3.5 text-[#0056a7]" />;
+      return <Clock className="w-3.5 h-3.5 text-[#6a994e]" />;
     case 'in_review':
-      return <ArrowRight className="w-3.5 h-3.5 text-[#b60046]" />;
+      return <ArrowRight className="w-3.5 h-3.5 text-[#8aad38]" />;
     default:
-      return <Circle className="w-3.5 h-3.5 text-[#a87ec1]" />;
+      return <Circle className="w-3.5 h-3.5 text-[#a4cdac]" />;
   }
 }
 
 function PriorityIcon({ priority }: { priority: IssuePriority }) {
   switch (priority) {
     case 'urgent':
-      return <Flame className="w-3.5 h-3.5 text-[#ff116c]" />;
+      return <Flame className="w-3.5 h-3.5 text-[#bc4749]" />;
     case 'high':
-      return <ArrowUp className="w-3.5 h-3.5 text-[#ab003f]" />;
+      return <ArrowUp className="w-3.5 h-3.5 text-[#8d7027]" />;
     case 'medium':
-      return <ArrowRight className="w-3.5 h-3.5 text-[#035eaf]" />;
+      return <ArrowRight className="w-3.5 h-3.5 text-[#386641]" />;
     default:
-      return <Minus className="w-3.5 h-3.5 text-[#824ea1]" />;
+      return <Minus className="w-3.5 h-3.5 text-[#6a994e]" />;
   }
 }
 
@@ -58,33 +58,33 @@ export const ListView: React.FC<ListViewProps> = ({ issues, onSelectIssue, onUpd
   });
 
   return (
-    <div className="flex-1 flex flex-col p-6 min-h-[calc(100vh-65px)] bg-[#f7f5fa]">
+    <div className="flex-1 flex flex-col p-6 min-h-[calc(100vh-65px)] bg-gradient-to-br from-[#faf6ec] via-[#f4edd9]/40 to-[#edf4dd]/50">
       {/* Top filter bar & metrics */}
       <div className="mb-4 flex items-center justify-between gap-4">
         <div className="relative max-w-sm w-full">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#a87ec1]" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#54793e]" />
           <input
             type="text"
             value={filterQuery}
             onChange={(e) => setFilterQuery(e.target.value)}
             placeholder="Filter issues in virtualized table..."
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-[#e0d2e9] text-xs text-[#2b1a36] placeholder-[#a87ec1] focus:outline-none focus:border-[#824ea1] shadow-xs"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-[#d2e6d6] text-xs text-[#16291a] placeholder-[#54793e] focus:outline-none focus:border-[#386641] shadow-xs"
           />
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-[#57346b]">
-          <span className="font-mono text-[#824ea1] font-bold">{filteredIssues.length}</span>
+        <div className="flex items-center gap-2 text-xs text-[#3f5b2f]">
+          <span className="font-mono text-[#223d27] font-bold">{filteredIssues.length}</span>
           <span className="font-medium">issues indexed</span>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#ebe1f0] text-[#57346b] border border-[#d6c2e2] font-semibold">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#edf4dd] text-[#223d27] border border-[#c9de99] font-semibold">
             @tanstack/react-virtual
           </span>
         </div>
       </div>
 
       {/* Virtualized Table Container */}
-      <div className="flex-1 rounded-2xl bg-white border border-[#e0d2e9] shadow-sm flex flex-col overflow-hidden">
+      <div className="flex-1 rounded-2xl bg-white border border-[#d2e6d6] shadow-sm flex flex-col overflow-hidden">
         {/* Table Header */}
-        <div className="grid grid-cols-12 px-5 py-3 bg-[#f5f0f8] border-b border-[#e0d2e9] text-[11px] font-bold text-[#57346b] uppercase tracking-wider">
+        <div className="grid grid-cols-12 px-5 py-3 bg-[#f4edd9] border-b border-[#d2e6d6] text-[11px] font-bold text-[#223d27] uppercase tracking-wider">
           <div className="col-span-1">Status</div>
           <div className="col-span-1">Key</div>
           <div className="col-span-6">Title</div>
@@ -118,7 +118,7 @@ export const ListView: React.FC<ListViewProps> = ({ issues, onSelectIssue, onUpd
                     height: `${virtualRow.size}px`,
                     transform: `translateY(${virtualRow.start}px)`,
                   }}
-                  className="grid grid-cols-12 items-center px-5 border-b border-[#f2edf5] hover:bg-[#faf8fd] cursor-pointer text-xs text-[#2b1a36] transition-colors"
+                  className="grid grid-cols-12 items-center px-5 border-b border-[#f4edd9]/60 hover:bg-[#faf6ec] cursor-pointer text-xs text-[#16291a] transition-colors"
                 >
                   {/* Status Toggle */}
                   <div
@@ -130,23 +130,23 @@ export const ListView: React.FC<ListViewProps> = ({ issues, onSelectIssue, onUpd
                       onUpdateStatus(issue.id, nextStatus);
                     }}
                   >
-                    <button className="p-1 rounded-md hover:bg-[#ebe1f0] transition-colors">
+                    <button className="p-1 rounded-md hover:bg-[#e1ecda] transition-colors">
                       <StatusIcon status={issue.status} />
                     </button>
                   </div>
 
                   {/* Key */}
-                  <div className="col-span-1 font-mono text-[11px] font-bold text-[#824ea1]">
+                  <div className="col-span-1 font-mono text-[11px] font-bold text-[#2d5234]">
                     {issue.key}
                   </div>
 
                   {/* Title & Labels */}
                   <div className="col-span-6 flex items-center gap-2 pr-4 truncate">
-                    <span className="font-semibold text-[#2b1a36] truncate">{issue.title}</span>
+                    <span className="font-semibold text-[#16291a] truncate">{issue.title}</span>
                     {issue.labels.slice(0, 2).map((l, idx) => (
                       <span
                         key={idx}
-                        className="shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#f5f0f8] text-[#57346b] border border-[#e0d2e9]"
+                        className="shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#edf4dd] text-[#223d27] border border-[#d2e6d6]"
                       >
                         {l}
                       </span>
@@ -156,11 +156,11 @@ export const ListView: React.FC<ListViewProps> = ({ issues, onSelectIssue, onUpd
                   {/* Priority */}
                   <div className="col-span-1 flex items-center gap-1.5">
                     <PriorityIcon priority={issue.priority} />
-                    <span className="capitalize text-[11px] font-medium text-[#57346b]">{issue.priority}</span>
+                    <span className="capitalize text-[11px] font-medium text-[#3f5b2f]">{issue.priority}</span>
                   </div>
 
                   {/* Estimate */}
-                  <div className="col-span-1 text-[11px] font-mono font-medium text-[#57346b]">
+                  <div className="col-span-1 text-[11px] font-mono font-medium text-[#3f5b2f]">
                     {issue.estimate ? `${issue.estimate} pts` : '-'}
                   </div>
 
@@ -171,14 +171,14 @@ export const ListView: React.FC<ListViewProps> = ({ issues, onSelectIssue, onUpd
                         <img
                           src={issue.assignee.avatar}
                           alt={issue.assignee.name}
-                          className="w-4 h-4 rounded-full object-cover ring-1 ring-[#e0d2e9]"
+                          className="w-4 h-4 rounded-full object-cover ring-1 ring-[#d2e6d6]"
                         />
-                        <span className="truncate text-[11px] font-medium text-[#2b1a36]">
+                        <span className="truncate text-[11px] font-medium text-[#16291a]">
                           {issue.assignee.name}
                         </span>
                       </>
                     ) : (
-                      <span className="text-[11px] text-[#a87ec1] italic">Unassigned</span>
+                      <span className="text-[11px] text-[#6a994e] italic">Unassigned</span>
                     )}
                   </div>
                 </div>

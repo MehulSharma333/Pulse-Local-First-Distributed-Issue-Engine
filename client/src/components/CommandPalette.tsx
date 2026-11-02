@@ -39,7 +39,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: 'action-create',
         title: 'Create new issue',
         subtitle: 'Add a new task to your local-first workspace',
-        icon: <Plus className="w-4 h-4 text-[#824ea1]" />,
+        icon: <Plus className="w-4 h-4 text-[#386641]" />,
         run: () => {
           onClose();
           onOpenCreateIssue();
@@ -50,9 +50,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         title: stats.isSimulatedOffline ? 'Reconnect sync relay' : 'Simulate offline mode',
         subtitle: stats.isSimulatedOffline ? 'Resume WebSocket data stream' : 'Cut network to test local mutations',
         icon: stats.isSimulatedOffline ? (
-          <Wifi className="w-4 h-4 text-[#035eaf]" />
+          <Wifi className="w-4 h-4 text-[#386641]" />
         ) : (
-          <WifiOff className="w-4 h-4 text-[#ff116c]" />
+          <WifiOff className="w-4 h-4 text-[#bc4749]" />
         ),
         run: () => {
           toggleSimulateOffline();
@@ -63,7 +63,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: 'action-view-board',
         title: 'Switch to Kanban Board',
         subtitle: 'Deterministic column transitions',
-        icon: <Kanban className="w-4 h-4 text-[#824ea1]" />,
+        icon: <Kanban className="w-4 h-4 text-[#386641]" />,
         run: () => {
           onViewChange('board');
           onClose();
@@ -73,7 +73,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: 'action-view-list',
         title: 'Switch to Virtualized List',
         subtitle: 'High-density table for 10k+ issues',
-        icon: <ListFilter className="w-4 h-4 text-[#824ea1]" />,
+        icon: <ListFilter className="w-4 h-4 text-[#386641]" />,
         run: () => {
           onViewChange('list');
           onClose();
@@ -102,7 +102,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         id: issue.id,
         title: `${issue.key} • ${issue.title}`,
         subtitle: `${issue.status.toUpperCase()} • Priority: ${issue.priority}`,
-        icon: <Sparkles className="w-4 h-4 text-[#ff5895]" />,
+        icon: <Sparkles className="w-4 h-4 text-[#6a994e]" />,
         run: () => {
           onClose();
           onSelectIssue(issue);
@@ -132,16 +132,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-black/35 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-24 px-4 bg-black/30 backdrop-blur-xs animate-in fade-in duration-150"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-xl rounded-2xl bg-white border border-[#e0d2e9] shadow-2xl overflow-hidden flex flex-col"
+        className="w-full max-w-xl rounded-2xl bg-white border border-[#d2e6d6] shadow-2xl overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 border-b border-[#e0d2e9] bg-[#f5f0f8]">
-          <Search className="w-4 h-4 text-[#824ea1]" />
+        <div className="flex items-center px-4 border-b border-[#d2e6d6] bg-[#f4edd9]">
+          <Search className="w-4 h-4 text-[#386641]" />
           <input
             ref={inputRef}
             type="text"
@@ -152,9 +152,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             }}
             onKeyDown={handleKeyDown}
             placeholder="Type a command or search issues..."
-            className="w-full px-3 py-3.5 bg-transparent text-sm text-[#2b1a36] placeholder-[#a87ec1] focus:outline-none font-medium"
+            className="w-full px-3 py-3.5 bg-transparent text-sm text-[#16291a] placeholder-[#54793e] focus:outline-none font-medium"
           />
-          <kbd className="px-2 py-0.5 text-[10px] font-mono bg-white text-[#57346b] border border-[#d6c2e2] rounded-md font-semibold">
+          <kbd className="px-2 py-0.5 text-[10px] font-mono bg-white text-[#223d27] border border-[#d2e6d6] rounded-md font-semibold">
             ESC
           </kbd>
         </div>
@@ -162,7 +162,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         {/* Results List */}
         <div className="max-h-96 overflow-y-auto p-2 space-y-1">
           {allItems.length === 0 ? (
-            <div className="px-4 py-8 text-center text-xs text-[#824ea1]">
+            <div className="px-4 py-8 text-center text-xs text-[#3f5b2f]">
               No matching commands or issues found
             </div>
           ) : (
@@ -173,16 +173,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 onMouseEnter={() => setSelectedIndex(idx)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors ${
                   idx === selectedIndex
-                    ? 'bg-[#f5f0f8] text-[#2b1a36] border border-[#cdb4db]'
-                    : 'text-[#57346b] hover:bg-[#faf8fd]'
+                    ? 'bg-[#edf4dd] text-[#16291a] border border-[#a4cdac]'
+                    : 'text-[#3f5b2f] hover:bg-[#faf6ec]'
                 }`}
               >
-                <div className="p-1.5 rounded-lg bg-white border border-[#e0d2e9] text-[#824ea1] shadow-xs">
+                <div className="p-1.5 rounded-lg bg-white border border-[#d2e6d6] text-[#386641] shadow-xs">
                   {item.icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-bold text-[#2b1a36] truncate">{item.title}</div>
-                  <div className="text-[11px] text-[#824ea1] truncate">{item.subtitle}</div>
+                  <div className="text-xs font-bold text-[#16291a] truncate">{item.title}</div>
+                  <div className="text-[11px] text-[#3f5b2f] truncate">{item.subtitle}</div>
                 </div>
               </div>
             ))
@@ -190,16 +190,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-2.5 border-t border-[#e0d2e9] bg-[#f5f0f8] flex items-center justify-between text-[11px] text-[#57346b]">
+        <div className="px-4 py-2.5 border-t border-[#d2e6d6] bg-[#f4edd9] flex items-center justify-between text-[11px] text-[#3f5b2f]">
           <div className="flex items-center gap-3">
             <span>
-              <kbd className="font-mono bg-white border border-[#d6c2e2] px-1.5 py-0.5 rounded text-[10px] text-[#2b1a36] font-semibold">↑↓</kbd> navigate
+              <kbd className="font-mono bg-white border border-[#d2e6d6] px-1.5 py-0.5 rounded text-[10px] text-[#16291a] font-semibold">↑↓</kbd> navigate
             </span>
             <span>
-              <kbd className="font-mono bg-white border border-[#d6c2e2] px-1.5 py-0.5 rounded text-[10px] text-[#2b1a36] font-semibold">↵</kbd> select
+              <kbd className="font-mono bg-white border border-[#d2e6d6] px-1.5 py-0.5 rounded text-[10px] text-[#16291a] font-semibold">↵</kbd> select
             </span>
           </div>
-          <span className="font-mono text-[10px] font-bold text-[#824ea1]">0ms local lookup</span>
+          <span className="font-mono text-[10px] font-bold text-[#386641]">0ms local lookup</span>
         </div>
       </div>
     </div>

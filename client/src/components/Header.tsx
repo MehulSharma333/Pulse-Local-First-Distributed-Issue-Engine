@@ -36,33 +36,33 @@ export const Header: React.FC<HeaderProps> = ({
   const { peers, localUser } = usePresence();
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[#e0d2e9] bg-white/80 backdrop-blur-md px-4 py-2.5 flex items-center justify-between gap-4 shadow-xs">
+    <header className="sticky top-0 z-30 border-b border-[#d2e6d6] bg-[#fcfaf5]/90 backdrop-blur-md px-5 py-2.5 flex items-center justify-between gap-4 shadow-xs">
       {/* Brand & View Switcher */}
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2.5">
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-[#f5f0f8] border border-[#cdb4db] text-[#824ea1] shadow-xs">
-            <Zap className="w-4 h-4 fill-[#cdb4db] text-[#824ea1]" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#ff5895] animate-pulse" />
+          <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-[#e1ecda] border border-[#a4cdac] text-[#16291a] shadow-xs">
+            <Zap className="w-4 h-4 fill-[#6a994e] text-[#223d27]" />
+            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#386641] animate-pulse" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-cinzel font-bold text-[#2b1a36] tracking-wider text-sm">PULSE</span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-[#f5f0f8] text-[#824ea1] border border-[#d6c2e2] font-semibold">
+              <span className="font-cinzel font-bold text-[#16291a] tracking-wider text-base">PULSE</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#edf4dd] text-[#2d5234] border border-[#c9de99] font-semibold">
                 CRDT ENGINE
               </span>
             </div>
-            <p className="text-[11px] text-[#824ea1] font-medium">Local-First Issue Architecture</p>
+            <p className="text-[11px] text-[#3f5b2f] font-medium">Local-First Issue Architecture</p>
           </div>
         </div>
 
         {/* View Switcher */}
-        <div className="hidden sm:flex items-center p-0.5 rounded-lg bg-[#ebe1f0]/60 border border-[#d6c2e2]">
+        <div className="hidden sm:flex items-center p-0.5 rounded-lg bg-[#f4edd9]/80 border border-[#d2e6d6]">
           <button
             onClick={() => onViewChange('board')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all ${
               currentView === 'board'
-                ? 'bg-white text-[#2b1a36] shadow-xs'
-                : 'text-[#824ea1] hover:text-[#2b1a36]'
+                ? 'bg-white text-[#16291a] shadow-xs'
+                : 'text-[#3f5b2f] hover:text-[#16291a]'
             }`}
           >
             <Kanban className="w-3.5 h-3.5" />
@@ -72,8 +72,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => onViewChange('list')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all ${
               currentView === 'list'
-                ? 'bg-white text-[#2b1a36] shadow-xs'
-                : 'text-[#824ea1] hover:text-[#2b1a36]'
+                ? 'bg-white text-[#16291a] shadow-xs'
+                : 'text-[#3f5b2f] hover:text-[#16291a]'
             }`}
           >
             <ListFilter className="w-3.5 h-3.5" />
@@ -86,13 +86,13 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="flex-1 max-w-md hidden md:block">
         <button
           onClick={onOpenCommandPalette}
-          className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl bg-white border border-[#e0d2e9] text-[#824ea1] hover:text-[#2b1a36] hover:border-[#cdb4db] text-xs transition-all shadow-xs"
+          className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl bg-white border border-[#d2e6d6] text-[#3f5b2f] hover:text-[#16291a] hover:border-[#6a994e] text-xs transition-all shadow-xs"
         >
           <div className="flex items-center gap-2">
-            <Command className="w-3.5 h-3.5 text-[#a87ec1]" />
-            <span className="font-medium text-[#824ea1]">Search or jump to...</span>
+            <Command className="w-3.5 h-3.5 text-[#54793e]" />
+            <span className="font-medium text-[#3f5b2f]">Search or jump to...</span>
           </div>
-          <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-[#f5f0f8] text-[#57346b] border border-[#d6c2e2] rounded-md font-semibold">
+          <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-[#edf4dd] text-[#223d27] border border-[#c9de99] rounded-md font-semibold">
             ⌘K
           </kbd>
         </button>
@@ -101,18 +101,18 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Right: Actions, Sync indicator, Peers, New Issue */}
       <div className="flex items-center gap-3">
         {/* Undo / Redo */}
-        <div className="hidden lg:flex items-center gap-1 text-[#824ea1]">
+        <div className="hidden lg:flex items-center gap-1 text-[#3f5b2f]">
           <button
             onClick={() => undo()}
             title="Undo (Ctrl+Z)"
-            className="p-1.5 rounded-lg hover:bg-[#f5f0f8] text-[#824ea1] hover:text-[#2b1a36] transition-colors"
+            className="p-1.5 rounded-lg hover:bg-[#e1ecda] text-[#3f5b2f] hover:text-[#16291a] transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => redo()}
             title="Redo (Ctrl+Shift+Z)"
-            className="p-1.5 rounded-lg hover:bg-[#f5f0f8] text-[#824ea1] hover:text-[#2b1a36] transition-colors"
+            className="p-1.5 rounded-lg hover:bg-[#e1ecda] text-[#3f5b2f] hover:text-[#16291a] transition-colors"
           >
             <RotateCw className="w-3.5 h-3.5" />
           </button>
@@ -123,11 +123,11 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={onToggleTelemetry}
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
             isTelemetryOpen
-              ? 'bg-[#ebe1f0] border-[#a87ec1] text-[#2b1a36]'
-              : 'bg-white border-[#e0d2e9] text-[#57346b] hover:border-[#cdb4db]'
+              ? 'bg-[#e1ecda] border-[#6a994e] text-[#16291a]'
+              : 'bg-white border-[#d2e6d6] text-[#223d27] hover:border-[#6a994e]'
           }`}
         >
-          <Activity className="w-3.5 h-3.5 text-[#824ea1] animate-pulse" />
+          <Activity className="w-3.5 h-3.5 text-[#386641] animate-pulse" />
           <span className="hidden xl:inline">CRDT Telemetry</span>
         </button>
 
@@ -136,19 +136,19 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={toggleSimulateOffline}
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
             stats.isSimulatedOffline
-              ? 'bg-[#ffe9f1] border-[#ff6ca4] text-[#b60046] animate-pulse'
-              : 'bg-[#e5f3ff] border-[#bde0fe] text-[#035eaf] hover:bg-[#d8ecfe]'
+              ? 'bg-[#f2dadb] border-[#ca6c6e] text-[#73292b] animate-pulse'
+              : 'bg-[#edf4dd] border-[#a4cdac] text-[#223d27] hover:bg-[#dbe9bb]'
           }`}
           title="Toggle offline state to demonstrate zero-latency local mutations"
         >
           {stats.isSimulatedOffline ? (
             <>
-              <WifiOff className="w-3.5 h-3.5 text-[#ff116c]" />
+              <WifiOff className="w-3.5 h-3.5 text-[#bc4749]" />
               <span>Offline Sim Active</span>
             </>
           ) : (
             <>
-              <Wifi className="w-3.5 h-3.5 text-[#035eaf]" />
+              <Wifi className="w-3.5 h-3.5 text-[#386641]" />
               <span>{stats.state === 'connected' ? 'Synced (0ms)' : 'Connecting...'}</span>
             </>
           )}
@@ -166,7 +166,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           ))}
           {peers.length > 4 && (
-            <div className="w-6 h-6 rounded-full bg-[#f5f0f8] ring-2 ring-white flex items-center justify-center text-[9px] font-bold text-[#824ea1]">
+            <div className="w-6 h-6 rounded-full bg-[#edf4dd] ring-2 ring-white flex items-center justify-center text-[9px] font-bold text-[#223d27]">
               +{peers.length - 4}
             </div>
           )}
@@ -175,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* New Issue Button */}
         <button
           onClick={onOpenCreateIssue}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#2b1a36] hover:bg-[#57346b] text-white font-semibold text-xs shadow-sm transition-all active:scale-95"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#223d27] hover:bg-[#16291a] text-white font-semibold text-xs shadow-xs transition-all active:scale-95"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>New Issue</span>

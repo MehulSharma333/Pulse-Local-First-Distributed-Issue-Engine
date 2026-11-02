@@ -28,27 +28,27 @@ const COLUMNS: {
   { 
     id: 'backlog', 
     title: 'Backlog', 
-    icon: <HelpCircle className="w-3.5 h-3.5 text-[#824ea1]" /> 
+    icon: <HelpCircle className="w-3.5 h-3.5 text-[#54793e]" /> 
   },
   { 
     id: 'todo', 
     title: 'Todo', 
-    icon: <Circle className="w-3.5 h-3.5 text-[#035eaf]" /> 
+    icon: <Circle className="w-3.5 h-3.5 text-[#386641]" /> 
   },
   { 
     id: 'in_progress', 
     title: 'In Progress', 
-    icon: <Clock className="w-3.5 h-3.5 text-[#0056a7]" /> 
+    icon: <Clock className="w-3.5 h-3.5 text-[#6a994e]" /> 
   },
   { 
     id: 'in_review', 
     title: 'In Review', 
-    icon: <ArrowRight className="w-3.5 h-3.5 text-[#b60046]" /> 
+    icon: <ArrowRight className="w-3.5 h-3.5 text-[#8aad38]" /> 
   },
   { 
     id: 'done', 
     title: 'Done', 
-    icon: <CheckCircle2 className="w-3.5 h-3.5 text-[#0f763e]" /> 
+    icon: <CheckCircle2 className="w-3.5 h-3.5 text-[#223d27]" /> 
   },
 ];
 
@@ -56,29 +56,29 @@ function PriorityBadge({ priority }: { priority: IssuePriority }) {
   switch (priority) {
     case 'urgent':
       return (
-        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#5b0023] bg-[#ffe9f1] border border-[#ffd2e3] px-2 py-0.5 rounded-full">
-          <Flame className="w-3 h-3 text-[#ff116c]" />
+        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#73292b] bg-[#f2dadb] border border-[#e5b6b6] px-2 py-0.5 rounded-full">
+          <Flame className="w-3 h-3 text-[#bc4749]" />
           Urgent
         </span>
       );
     case 'high':
       return (
-        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#56001f] bg-[#ffdeea] border border-[#ffbed6] px-2 py-0.5 rounded-full">
-          <ArrowUp className="w-3 h-3 text-[#ab003f]" />
+        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#463813] bg-[#f4edd9] border border-[#dfc688] px-2 py-0.5 rounded-full">
+          <ArrowUp className="w-3 h-3 text-[#8d7027]" />
           High
         </span>
       );
     case 'medium':
       return (
-        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#012f57] bg-[#e5f3ff] border border-[#cbe6fe] px-2 py-0.5 rounded-full">
-          <ArrowRight className="w-3 h-3 text-[#035eaf]" />
+        <span className="flex items-center gap-1 text-[10px] font-semibold text-[#223d27] bg-[#edf4dd] border border-[#c9de99] px-2 py-0.5 rounded-full">
+          <ArrowRight className="w-3 h-3 text-[#386641]" />
           Med
         </span>
       );
     default:
       return (
-        <span className="flex items-center gap-1 text-[10px] font-medium text-[#57346b] bg-[#f5f0f8] border border-[#e0d2e9] px-2 py-0.5 rounded-full">
-          <Minus className="w-3 h-3 text-[#824ea1]" />
+        <span className="flex items-center gap-1 text-[10px] font-medium text-[#3f5b2f] bg-[#fcfaf5] border border-[#d2e6d6] px-2 py-0.5 rounded-full">
+          <Minus className="w-3 h-3 text-[#6a994e]" />
           Low
         </span>
       );
@@ -115,7 +115,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
   };
 
   return (
-    <div className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-gradient-to-br from-[#f5f0f8] via-[#ffddea]/30 to-[#d8ecfe]/40">
+    <div className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-gradient-to-br from-[#faf6ec] via-[#f4edd9]/50 to-[#edf4dd]/60">
       {COLUMNS.map((column) => {
         const columnIssues = issuesByStatus[column.id] || [];
 
@@ -124,18 +124,18 @@ export const BoardView: React.FC<BoardViewProps> = ({
             key={column.id}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, column.id)}
-            className="w-80 shrink-0 flex flex-col max-h-[calc(100vh-100px)] rounded-2xl bg-white/95 border border-[#e0d2e9]/80 shadow-xl backdrop-blur-sm transition-all"
+            className="w-80 shrink-0 flex flex-col max-h-[calc(100vh-100px)] rounded-2xl bg-[#fcfaf5] border border-[#d2e6d6] shadow-xl backdrop-blur-sm transition-all"
           >
             {/* Generic Column Header */}
-            <div className="p-3.5 border-b border-[#f0ebf5] flex items-center justify-between">
+            <div className="p-3.5 border-b border-[#e1ecda] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-[#f7f5fa] border border-[#e0d2e9] shadow-xs">
+                <span className="p-1.5 rounded-lg bg-white border border-[#d2e6d6] shadow-xs">
                   {column.icon}
                 </span>
-                <span className="text-xs font-bold text-[#2b1a36] tracking-tight">
+                <span className="text-xs font-bold text-[#16291a] tracking-tight">
                   {column.title}
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-[#f5f0f8] text-[11px] font-mono font-bold text-[#57346b] border border-[#e0d2e9]">
+                <span className="px-2 py-0.5 rounded-full bg-[#edf4dd] text-[11px] font-mono font-bold text-[#223d27] border border-[#c9de99]">
                   {columnIssues.length}
                 </span>
               </div>
@@ -143,7 +143,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => onOpenCreateWithStatus(column.id)}
-                  className="p-1 rounded-lg text-[#824ea1] hover:text-[#2b1a36] hover:bg-[#f5f0f8] transition-colors"
+                  className="p-1 rounded-lg text-[#386641] hover:text-[#16291a] hover:bg-[#edf4dd] transition-colors"
                   title="Add issue to this column"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -154,7 +154,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
             {/* Column Cards Container */}
             <div className="flex-1 p-3 space-y-2.5 overflow-y-auto min-h-[160px]">
               {columnIssues.length === 0 ? (
-                <div className="h-32 border-2 border-dashed border-[#e0d2e9]/70 rounded-xl flex items-center justify-center text-xs font-medium text-[#a87ec1]">
+                <div className="h-32 border-2 border-dashed border-[#d2e6d6] rounded-xl flex items-center justify-center text-xs font-medium text-[#6a994e]">
                   Drop card here
                 </div>
               ) : (
@@ -167,30 +167,30 @@ export const BoardView: React.FC<BoardViewProps> = ({
                       draggable
                       onDragStart={(e) => handleDragStart(e, issue.id)}
                       onClick={() => onSelectIssue(issue)}
-                      className={`group relative p-4 rounded-xl bg-white hover:bg-[#faf9fd] border cursor-grab active:cursor-grabbing transition-all shadow-xs hover:shadow-md hover:border-[#a87ec1] ${
+                      className={`group relative p-4 rounded-xl bg-white hover:bg-[#fcfaf5] border cursor-grab active:cursor-grabbing transition-all shadow-xs hover:shadow-md hover:border-[#6a994e] ${
                         viewingPeers.length > 0
-                          ? 'border-[#ff116c] ring-2 ring-[#ffd2e3]'
-                          : 'border-[#ebe1f0]'
+                          ? 'border-[#386641] ring-2 ring-[#a4cdac]'
+                          : 'border-[#e1ecda]'
                       }`}
                     >
                       {/* Peer Viewing Indicator */}
                       {viewingPeers.length > 0 && (
-                        <div className="absolute -top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#ffe9f1] border border-[#ff6ca4] text-[10px] font-semibold text-[#b60046] shadow-xs">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#ff116c] animate-ping" />
+                        <div className="absolute -top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#edf4dd] border border-[#77b483] text-[10px] font-semibold text-[#223d27] shadow-xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#386641] animate-ping" />
                           <span>{viewingPeers[0].name} viewing</span>
                         </div>
                       )}
 
                       {/* Key & Priority */}
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="font-mono text-[11px] font-bold text-[#824ea1] group-hover:text-[#57346b] transition-colors">
+                        <span className="font-mono text-[11px] font-bold text-[#2d5234] group-hover:text-[#16291a] transition-colors">
                           {issue.key}
                         </span>
                         <PriorityBadge priority={issue.priority} />
                       </div>
 
                       {/* Title */}
-                      <h4 className="text-xs font-semibold text-[#2b1a36] line-clamp-2 leading-relaxed">
+                      <h4 className="text-xs font-semibold text-[#16291a] line-clamp-2 leading-relaxed">
                         {issue.title}
                       </h4>
 
@@ -200,7 +200,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                           {issue.labels.map((label, idx) => (
                             <span
                               key={idx}
-                              className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#f5f0f8] text-[#57346b] border border-[#e0d2e9]"
+                              className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-[#edf4dd] text-[#223d27] border border-[#d2e6d6]"
                             >
                               {label}
                             </span>
@@ -209,9 +209,9 @@ export const BoardView: React.FC<BoardViewProps> = ({
                       )}
 
                       {/* Footer: Estimate & Assignee */}
-                      <div className="mt-3 pt-2.5 border-t border-[#f2edf5] flex items-center justify-between text-xs text-[#824ea1]">
+                      <div className="mt-3 pt-2.5 border-t border-[#f4edd9] flex items-center justify-between text-xs text-[#3f5b2f]">
                         {issue.estimate ? (
-                          <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#e5f3ff] text-[#035eaf] border border-[#cbe6fe]">
+                          <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[#e1ecda] text-[#16291a] border border-[#a4cdac]">
                             {issue.estimate} pts
                           </span>
                         ) : (
@@ -221,7 +221,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                         {issue.assignee ? (
                           <div
                             title={issue.assignee.name}
-                            className="w-5 h-5 rounded-full overflow-hidden ring-2 ring-[#e0d2e9]"
+                            className="w-5 h-5 rounded-full overflow-hidden ring-2 ring-[#d2e6d6]"
                           >
                             <img
                               src={issue.assignee.avatar}
@@ -230,7 +230,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                             />
                           </div>
                         ) : (
-                          <span className="text-[10px] text-[#a87ec1] italic">Unassigned</span>
+                          <span className="text-[10px] text-[#6a994e] italic">Unassigned</span>
                         )}
                       </div>
                     </div>

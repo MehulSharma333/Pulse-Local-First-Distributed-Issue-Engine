@@ -86,7 +86,7 @@ export function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f7f5fa] text-[#2b1a36] flex flex-col font-sans antialiased selection:bg-[#ffc8dd] selection:text-[#5b0023]">
+    <div className="min-h-screen bg-[#faf6ec] text-[#16291a] flex flex-col font-sans antialiased selection:bg-[#a4cdac] selection:text-[#0b140d]">
       {/* Top Application Header */}
       <Header
         currentView={currentView}

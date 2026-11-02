@@ -84,14 +84,14 @@ export const IssueDetailModal: React.FC<IssueDetailModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/35 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="w-full max-w-xl rounded-2xl bg-white border border-[#e0d2e9] shadow-2xl overflow-hidden flex flex-col">
+      <div className="w-full max-w-xl rounded-2xl bg-white border border-[#d2e6d6] shadow-2xl overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-[#e0d2e9] flex items-center justify-between bg-[#f5f0f8]">
+        <div className="px-6 py-4 border-b border-[#d2e6d6] flex items-center justify-between bg-[#f4edd9]">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-white text-[#824ea1] border border-[#d6c2e2] shadow-xs">
+            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-white text-[#223d27] border border-[#d2e6d6] shadow-xs">
               {issue ? issue.key : 'NEW ISSUE'}
             </span>
-            <span className="text-xs text-[#57346b] font-medium">
+            <span className="text-xs text-[#3f5b2f] font-medium">
               {issue ? 'Editing stored task' : 'Creating local-first issue'}
             </span>
           </div>
@@ -104,7 +104,7 @@ export const IssueDetailModal: React.FC<IssueDetailModalProps> = ({
                   onDelete(issue.id);
                   onClose();
                 }}
-                className="p-1.5 rounded-lg text-[#ff116c] hover:bg-[#ffe9f1] transition-colors"
+                className="p-1.5 rounded-lg text-[#bc4749] hover:bg-[#f2dadb] transition-colors"
                 title="Delete Issue"
               >
                 <Trash2 className="w-4 h-4" />
@@ -112,7 +112,7 @@ export const IssueDetailModal: React.FC<IssueDetailModalProps> = ({
             )}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-[#824ea1] hover:text-[#2b1a36] hover:bg-white transition-colors"
+              className="p-1.5 rounded-lg text-[#3f5b2f] hover:text-[#16291a] hover:bg-white transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -122,7 +122,7 @@ export const IssueDetailModal: React.FC<IssueDetailModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4 bg-white">
           <div>
-            <label className="block text-xs font-bold text-[#57346b] mb-1.5">Issue Title</label>
+            <label className="block text-xs font-bold text-[#223d27] mb-1.5">Issue Title</label>
             <input
               type="text"
               required
@@ -130,29 +130,29 @@ export const IssueDetailModal: React.FC<IssueDetailModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Implement optimistic mutation rollback"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#faf8fd] border border-[#e0d2e9] text-sm font-medium text-[#2b1a36] placeholder-[#a87ec1] focus:outline-none focus:border-[#824ea1]"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#faf6ec] border border-[#d2e6d6] text-sm font-medium text-[#16291a] placeholder-[#54793e] focus:outline-none focus:border-[#386641]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#57346b] mb-1.5">Description</label>
+            <label className="block text-xs font-bold text-[#223d27] mb-1.5">Description</label>
             <textarea
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Add details, acceptance criteria, or architectural notes..."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#faf8fd] border border-[#e0d2e9] text-sm text-[#2b1a36] placeholder-[#a87ec1] focus:outline-none focus:border-[#824ea1]"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#faf6ec] border border-[#d2e6d6] text-sm text-[#16291a] placeholder-[#54793e] focus:outline-none focus:border-[#386641]"
             />
           </div>
 
           {/* Properties Grid */}
           <div className="grid grid-cols-2 gap-3 pt-2">
             <div>
-              <label className="block text-xs font-bold text-[#57346b] mb-1.5">Status</label>
+              <label className="block text-xs font-bold text-[#223d27] mb-1.5">Status</label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as IssueStatus)}
-                className="w-full px-3 py-2 rounded-xl bg-[#faf8fd] border border-[#e0d2e9] text-xs font-semibold text-[#2b1a36] focus:outline-none focus:border-[#824ea1]"
+                className="w-full px-3 py-2 rounded-xl bg-[#faf6ec] border border-[#d2e6d6] text-xs font-semibold text-[#16291a] focus:outline-none focus:border-[#386641]"
               >
                 <option value="backlog">Backlog</option>
                 <option value="todo">Todo</option>
@@ -164,26 +164,26 @@ export const IssueDetailModal: React.FC<IssueDetailModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#57346b] mb-1.5">Priority</label>
+              <label className="block text-xs font-bold text-[#223d27] mb-1.5">Priority</label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as IssuePriority)}
-                className="w-full px-3 py-2 rounded-xl bg-[#faf8fd] border border-[#e0d2e9] text-xs font-semibold text-[#2b1a36] focus:outline-none focus:border-[#824ea1]"
+                className="w-full px-3 py-2 rounded-xl bg-[#faf6ec] border border-[#d2e6d6] text-xs font-semibold text-[#16291a] focus:outline-none focus:border-[#386641]"
               >
                 <option value="urgent">🔴 Urgent</option>
                 <option value="high">🟠 High</option>
-                <option value="medium">🔵 Medium</option>
+                <option value="medium">🟢 Medium</option>
                 <option value="low">⚪ Low</option>
                 <option value="none">None</option>
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#57346b] mb-1.5">Story Estimate</label>
+              <label className="block text-xs font-bold text-[#223d27] mb-1.5">Story Estimate</label>
               <select
                 value={estimate}
                 onChange={(e) => setEstimate(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-xl bg-[#faf8fd] border border-[#e0d2e9] text-xs font-semibold text-[#2b1a36] focus:outline-none focus:border-[#824ea1]"
+                className="w-full px-3 py-2 rounded-xl bg-[#faf6ec] border border-[#d2e6d6] text-xs font-semibold text-[#16291a] focus:outline-none focus:border-[#386641]"
               >
                 <option value={1}>1 Point</option>
                 <option value={2}>2 Points</option>
@@ -194,31 +194,31 @@ export const IssueDetailModal: React.FC<IssueDetailModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#57346b] mb-1.5">Labels (comma-separated)</label>
+              <label className="block text-xs font-bold text-[#223d27] mb-1.5">Labels (comma-separated)</label>
               <input
                 type="text"
                 value={labelsInput}
                 onChange={(e) => setLabelsInput(e.target.value)}
                 placeholder="CRDT, Engine, UI"
-                className="w-full px-3 py-2 rounded-xl bg-[#faf8fd] border border-[#e0d2e9] text-xs font-medium text-[#2b1a36] placeholder-[#a87ec1] focus:outline-none focus:border-[#824ea1]"
+                className="w-full px-3 py-2 rounded-xl bg-[#faf6ec] border border-[#d2e6d6] text-xs font-medium text-[#16291a] placeholder-[#54793e] focus:outline-none focus:border-[#386641]"
               />
             </div>
           </div>
 
           {/* Footer buttons */}
-          <div className="pt-4 flex items-center justify-end gap-3 border-t border-[#e0d2e9]">
+          <div className="pt-4 flex items-center justify-end gap-3 border-t border-[#d2e6d6]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-[#f5f0f8] hover:bg-[#ebe1f0] text-xs font-semibold text-[#57346b] transition-colors"
+              className="px-4 py-2 rounded-xl bg-[#f4edd9] hover:bg-[#e1ecda] text-xs font-semibold text-[#223d27] transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-[#824ea1] to-[#a87ec1] hover:from-[#57346b] hover:to-[#824ea1] text-xs font-bold text-white shadow-sm shadow-purple-900/20 transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#223d27] hover:bg-[#16291a] text-xs font-bold text-white shadow-xs transition-all active:scale-95"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5 text-[#a7c957]" />
               <span>{issue ? 'Update Issue (0ms)' : 'Create Issue (0ms)'}</span>
             </button>
           </div>

@@ -1,66 +1,66 @@
 @import "tailwindcss";
 
 @theme {
-  --color-thistle-DEFAULT: #cdb4db;
-  --color-thistle-100: #2b1a36;
-  --color-thistle-200: #57346b;
-  --color-thistle-300: #824ea1;
-  --color-thistle-400: #a87ec1;
-  --color-thistle-500: #cdb4db;
-  --color-thistle-600: #d6c2e2;
-  --color-thistle-700: #e0d2e9;
-  --color-thistle-800: #ebe1f0;
-  --color-thistle-900: #f5f0f8;
+  --color-hunter-green-DEFAULT: #386641;
+  --color-hunter-green-100: #0b140d;
+  --color-hunter-green-200: #16291a;
+  --color-hunter-green-300: #223d27;
+  --color-hunter-green-400: #2d5234;
+  --color-hunter-green-500: #386641;
+  --color-hunter-green-600: #51935e;
+  --color-hunter-green-700: #77b483;
+  --color-hunter-green-800: #a4cdac;
+  --color-hunter-green-900: #d2e6d6;
 
-  --color-pastel-petal-DEFAULT: #ffc8dd;
-  --color-pastel-petal-100: #5b0023;
-  --color-pastel-petal-200: #b60046;
-  --color-pastel-petal-300: #ff116c;
-  --color-pastel-petal-400: #ff6ca4;
-  --color-pastel-petal-500: #ffc8dd;
-  --color-pastel-petal-600: #ffd2e3;
-  --color-pastel-petal-700: #ffddea;
-  --color-pastel-petal-800: #ffe9f1;
-  --color-pastel-petal-900: #fff4f8;
+  --color-sage-green-DEFAULT: #6a994e;
+  --color-sage-green-100: #151e10;
+  --color-sage-green-200: #2a3d1f;
+  --color-sage-green-300: #3f5b2f;
+  --color-sage-green-400: #54793e;
+  --color-sage-green-500: #6a994e;
+  --color-sage-green-600: #85b36b;
+  --color-sage-green-700: #a4c690;
+  --color-sage-green-800: #c2d9b5;
+  --color-sage-green-900: #e1ecda;
 
-  --color-baby-pink-DEFAULT: #ffafcc;
-  --color-baby-pink-100: #56001f;
-  --color-baby-pink-200: #ab003f;
-  --color-baby-pink-300: #ff025f;
-  --color-baby-pink-400: #ff5895;
-  --color-baby-pink-500: #ffafcc;
-  --color-baby-pink-600: #ffbed6;
-  --color-baby-pink-700: #ffcee0;
-  --color-baby-pink-800: #ffdeea;
-  --color-baby-pink-900: #ffeff5;
+  --color-yellow-green-DEFAULT: #a7c957;
+  --color-yellow-green-100: #222b0e;
+  --color-yellow-green-200: #45561c;
+  --color-yellow-green-300: #67812a;
+  --color-yellow-green-400: #8aad38;
+  --color-yellow-green-500: #a7c957;
+  --color-yellow-green-600: #b8d377;
+  --color-yellow-green-700: #c9de99;
+  --color-yellow-green-800: #dbe9bb;
+  --color-yellow-green-900: #edf4dd;
 
-  --color-icy-blue-DEFAULT: #bde0fe;
-  --color-icy-blue-100: #012f57;
-  --color-icy-blue-200: #035eaf;
-  --color-icy-blue-300: #0f8dfb;
-  --color-icy-blue-400: #66b6fd;
-  --color-icy-blue-500: #bde0fe;
-  --color-icy-blue-600: #cbe6fe;
-  --color-icy-blue-700: #d8ecfe;
-  --color-icy-blue-800: #e5f3ff;
-  --color-icy-blue-900: #f2f9ff;
+  --color-vanilla-cream-DEFAULT: #f2e8cf;
+  --color-vanilla-cream-100: #463813;
+  --color-vanilla-cream-200: #8d7027;
+  --color-vanilla-cream-300: #cba442;
+  --color-vanilla-cream-400: #dfc688;
+  --color-vanilla-cream-500: #f2e8cf;
+  --color-vanilla-cream-600: #f4edd9;
+  --color-vanilla-cream-700: #f7f1e2;
+  --color-vanilla-cream-800: #faf6ec;
+  --color-vanilla-cream-900: #fcfaf5;
 
-  --color-sky-blue-DEFAULT: #a2d2ff;
-  --color-sky-blue-100: #002b54;
-  --color-sky-blue-200: #0056a7;
-  --color-sky-blue-300: #0082fb;
-  --color-sky-blue-400: #50aaff;
-  --color-sky-blue-500: #a2d2ff;
-  --color-sky-blue-600: #b6dcff;
-  --color-sky-blue-700: #c8e4ff;
-  --color-sky-blue-800: #daedff;
-  --color-sky-blue-900: #edf6ff;
+  --color-blushed-brick-DEFAULT: #bc4749;
+  --color-blushed-brick-100: #260e0e;
+  --color-blushed-brick-200: #4c1c1c;
+  --color-blushed-brick-300: #73292b;
+  --color-blushed-brick-400: #993739;
+  --color-blushed-brick-500: #bc4749;
+  --color-blushed-brick-600: #ca6c6e;
+  --color-blushed-brick-700: #d79192;
+  --color-blushed-brick-800: #e5b6b6;
+  --color-blushed-brick-900: #f2dadb;
 }
 
 body {
   margin: 0;
-  background-color: #f7f5fa;
-  color: #2b1a36;
+  background-color: #faf6ec;
+  color: #16291a;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
   user-select: none;
@@ -70,7 +70,7 @@ body {
   font-family: 'Cinzel', serif;
 }
 
-/* Custom sleek pastel scrollbar */
+/* Custom sleek monochromatic scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -81,10 +81,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d6c2e2;
+  background: #a4cdac;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a87ec1;
+  background: #6a994e;
 }
