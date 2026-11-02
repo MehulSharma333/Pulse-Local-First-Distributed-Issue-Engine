@@ -46,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-[#2b1a36] tracking-tight text-sm">Pulse</span>
+              <span className="font-cinzel font-bold text-[#2b1a36] tracking-wider text-sm">PULSE</span>
               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-[#f5f0f8] text-[#824ea1] border border-[#d6c2e2] font-semibold">
                 CRDT ENGINE
               </span>
@@ -175,7 +175,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* New Issue Button */}
         <button
           onClick={onOpenCreateIssue}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#824ea1] to-[#a87ec1] hover:from-[#57346b] hover:to-[#824ea1] text-white font-semibold text-xs shadow-sm shadow-purple-900/15 transition-all active:scale-95"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#2b1a36] hover:bg-[#57346b] text-white font-semibold text-xs shadow-sm transition-all active:scale-95"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>New Issue</span>

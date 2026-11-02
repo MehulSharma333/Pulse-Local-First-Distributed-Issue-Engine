@@ -23,49 +23,31 @@ interface BoardViewProps {
 const COLUMNS: { 
   id: IssueStatus; 
   title: string; 
-  bg: string;
-  border: string;
-  accent: string;
   icon: React.ReactNode 
 }[] = [
   { 
     id: 'backlog', 
     title: 'Backlog', 
-    bg: 'bg-[#f5f0f8]/90', 
-    border: 'border-[#e0d2e9]', 
-    accent: 'text-[#824ea1]',
     icon: <HelpCircle className="w-3.5 h-3.5 text-[#824ea1]" /> 
   },
   { 
     id: 'todo', 
     title: 'Todo', 
-    bg: 'bg-[#f2f9ff]/90', 
-    border: 'border-[#d8ecfe]', 
-    accent: 'text-[#035eaf]',
     icon: <Circle className="w-3.5 h-3.5 text-[#035eaf]" /> 
   },
   { 
     id: 'in_progress', 
     title: 'In Progress', 
-    bg: 'bg-[#edf6ff]/90', 
-    border: 'border-[#c8e4ff]', 
-    accent: 'text-[#0056a7]',
     icon: <Clock className="w-3.5 h-3.5 text-[#0056a7]" /> 
   },
   { 
     id: 'in_review', 
     title: 'In Review', 
-    bg: 'bg-[#fff4f8]/90', 
-    border: 'border-[#ffddea]', 
-    accent: 'text-[#b60046]',
     icon: <ArrowRight className="w-3.5 h-3.5 text-[#b60046]" /> 
   },
   { 
     id: 'done', 
     title: 'Done', 
-    bg: 'bg-[#f4faf6]/90', 
-    border: 'border-[#d2edd9]', 
-    accent: 'text-[#0f763e]',
     icon: <CheckCircle2 className="w-3.5 h-3.5 text-[#0f763e]" /> 
   },
 ];
@@ -133,7 +115,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
   };
 
   return (
-    <div className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-[#f7f5fa]">
+    <div className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-gradient-to-br from-[#f5f0f8] via-[#ffddea]/30 to-[#d8ecfe]/40">
       {COLUMNS.map((column) => {
         const columnIssues = issuesByStatus[column.id] || [];
 
@@ -142,18 +124,18 @@ export const BoardView: React.FC<BoardViewProps> = ({
             key={column.id}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, column.id)}
-            className={`w-80 shrink-0 flex flex-col max-h-[calc(100vh-100px)] rounded-2xl ${column.bg} border ${column.border} shadow-sm backdrop-blur-xs`}
+            className="w-80 shrink-0 flex flex-col max-h-[calc(100vh-100px)] rounded-2xl bg-white/95 border border-[#e0d2e9]/80 shadow-xl backdrop-blur-sm transition-all"
           >
-            {/* Column Header */}
-            <div className={`p-3.5 border-b ${column.border} flex items-center justify-between`}>
+            {/* Generic Column Header */}
+            <div className="p-3.5 border-b border-[#f0ebf5] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="p-1 rounded-lg bg-white/90 border border-white shadow-xs">
+                <span className="p-1.5 rounded-lg bg-[#f7f5fa] border border-[#e0d2e9] shadow-xs">
                   {column.icon}
                 </span>
                 <span className="text-xs font-bold text-[#2b1a36] tracking-tight">
                   {column.title}
                 </span>
-                <span className={`px-2 py-0.5 rounded-full bg-white text-[11px] font-mono font-bold ${column.accent} shadow-xs`}>
+                <span className="px-2 py-0.5 rounded-full bg-[#f5f0f8] text-[11px] font-mono font-bold text-[#57346b] border border-[#e0d2e9]">
                   {columnIssues.length}
                 </span>
               </div>
@@ -161,7 +143,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => onOpenCreateWithStatus(column.id)}
-                  className="p-1 rounded-lg text-[#824ea1] hover:text-[#2b1a36] hover:bg-white/80 transition-colors"
+                  className="p-1 rounded-lg text-[#824ea1] hover:text-[#2b1a36] hover:bg-[#f5f0f8] transition-colors"
                   title="Add issue to this column"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -170,7 +152,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
             </div>
 
             {/* Column Cards Container */}
-            <div className="flex-1 p-2.5 space-y-2.5 overflow-y-auto min-h-[160px]">
+            <div className="flex-1 p-3 space-y-2.5 overflow-y-auto min-h-[160px]">
               {columnIssues.length === 0 ? (
                 <div className="h-32 border-2 border-dashed border-[#e0d2e9]/70 rounded-xl flex items-center justify-center text-xs font-medium text-[#a87ec1]">
                   Drop card here
@@ -185,7 +167,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                       draggable
                       onDragStart={(e) => handleDragStart(e, issue.id)}
                       onClick={() => onSelectIssue(issue)}
-                      className={`group relative p-4 rounded-xl bg-white hover:bg-[#fffdfd] border cursor-grab active:cursor-grabbing transition-all shadow-xs hover:shadow-md hover:border-[#a87ec1] ${
+                      className={`group relative p-4 rounded-xl bg-white hover:bg-[#faf9fd] border cursor-grab active:cursor-grabbing transition-all shadow-xs hover:shadow-md hover:border-[#a87ec1] ${
                         viewingPeers.length > 0
                           ? 'border-[#ff116c] ring-2 ring-[#ffd2e3]'
                           : 'border-[#ebe1f0]'
