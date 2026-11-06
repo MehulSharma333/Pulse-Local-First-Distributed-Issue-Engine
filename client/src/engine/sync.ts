@@ -2,8 +2,10 @@ import { WebsocketProvider } from 'y-websocket';
 import { doc } from './ydoc';
 import type { SyncState, SyncStats } from '../types/issue';
 
-const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:1234';
-const ROOM_NAME = 'pulse-default-room';
+const WS_URL =
+  import.meta.env.VITE_WS_URL ||
+  (import.meta.env.PROD ? 'wss://demos.yjs.dev/ws' : 'ws://localhost:1234');
+const ROOM_NAME = 'pulse-crdt-workspace';
 
 export const wsProvider = new WebsocketProvider(WS_URL, ROOM_NAME, doc, {
   connect: true,

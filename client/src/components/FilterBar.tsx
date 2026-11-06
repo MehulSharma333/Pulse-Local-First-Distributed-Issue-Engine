@@ -1,5 +1,5 @@
 import React from 'react';
-import { Filter, X, Sparkles, Download, Layers } from 'lucide-react';
+import { Filter, X, Download, Layers } from 'lucide-react';
 import type { ActiveFilters } from './Sidebar';
 
 interface FilterBarProps {
@@ -90,7 +90,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-[#d2e6d6] text-[#223d27] hover:border-[#6a994e] font-semibold text-[11px] transition-colors shadow-xs"
           title="Seed realistic engineering issues to test performance and virtualized scrolling"
         >
-          <Sparkles className="w-3 h-3 text-[#6a994e]" />
+          
           <span>+ Seed Batch Issues</span>
         </button>
 

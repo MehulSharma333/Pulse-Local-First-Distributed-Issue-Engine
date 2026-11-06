@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Trash2, Sparkles, Lock, Tag, UserCheck, Flame, ArrowUp, ArrowRight, Minus } from 'lucide-react';
+import { X, Trash2, Lock, Tag, UserCheck, Flame, ArrowUp, ArrowRight, Minus } from 'lucide-react';
 import type { Issue, IssueStatus, IssuePriority, Assignee } from '../types/issue';
 import { DEFAULT_TEAM_MEMBERS, DEFAULT_WORKSPACE_TAGS } from '../types/issue';
 import confetti from 'canvas-confetti';
@@ -381,7 +381,7 @@ export const IssueDetailModal: React.FC<IssueDetailModalProps> = ({
                 type="submit"
                 className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#223d27] hover:bg-[#16291a] text-xs font-bold text-white shadow-xs transition-all active:scale-95"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#a7c957]" />
+                
                 <span>{issue ? 'Save Changes' : 'Create Issue'}</span>
               </button>
             </div>
