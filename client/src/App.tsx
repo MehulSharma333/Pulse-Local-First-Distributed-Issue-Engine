@@ -7,6 +7,7 @@ import { ListView } from './components/ListView';
 import { CommandPalette } from './components/CommandPalette';
 import { SyncTelemetryModal } from './components/SyncTelemetryModal';
 import { IssueDetailModal } from './components/IssueDetailModal';
+import { DeviceGuard } from './components/DeviceGuard';
 import { useIssues } from './hooks/useIssues';
 import { usePresence } from './hooks/usePresence';
 import { undo, redo } from './engine/history';
@@ -213,101 +214,103 @@ export function App() {
   }, [issues]);
 
   return (
-    <div className="min-h-screen bg-[#faf6ec] text-[#16291a] flex flex-col font-sans antialiased selection:bg-[#a4cdac] selection:text-[#0b140d]">
-      {/* Top Application Header */}
-      <Header
-        currentView={currentView}
-        onViewChange={setCurrentView}
-        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
-        onOpenCreateIssue={() => handleOpenCreateIssue('todo')}
-        onToggleTelemetry={() => setIsTelemetryOpen((prev) => !prev)}
-        isTelemetryOpen={isTelemetryOpen}
-      />
-
-      {/* Main App Layout: Sidebar + Canvas */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Collapsible Linear-Style Sidebar */}
-        <Sidebar
-          isCollapsed={isSidebarCollapsed}
-          onToggleCollapse={() => setIsSidebarCollapsed((prev) => !prev)}
-          activeFilters={activeFilters}
-          onFilterChange={setActiveFilters}
-          totalIssues={issues.length}
-          myIssuesCount={myIssuesCount}
-          urgentCount={urgentCount}
-          completedPoints={completedPoints}
-          totalPoints={totalPoints}
-          labels={allLabels}
+    <DeviceGuard>
+      <div className="min-h-screen bg-[#faf6ec] text-[#16291a] flex flex-col font-sans antialiased selection:bg-[#a4cdac] selection:text-[#0b140d]">
+        {/* Top Application Header */}
+        <Header
+          currentView={currentView}
+          onViewChange={setCurrentView}
+          onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
           onOpenCreateIssue={() => handleOpenCreateIssue('todo')}
+          onToggleTelemetry={() => setIsTelemetryOpen((prev) => !prev)}
+          isTelemetryOpen={isTelemetryOpen}
         />
 
-        {/* Content Column: Filter Bar + Views */}
-        <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          {/* Filter Sub-header */}
-          <FilterBar
+        {/* Main App Layout: Sidebar + Canvas */}
+        <div className="flex-1 flex overflow-hidden">
+          {/* Collapsible Linear-Style Sidebar */}
+          <Sidebar
+            isCollapsed={isSidebarCollapsed}
+            onToggleCollapse={() => setIsSidebarCollapsed((prev) => !prev)}
             activeFilters={activeFilters}
-            onClearFilters={() => setActiveFilters({ view: 'all' })}
-            onRemoveFilter={(key) =>
-              setActiveFilters((prev) => ({ ...prev, [key]: undefined }))
-            }
-            filteredCount={filteredIssues.length}
-            totalCount={issues.length}
-            onSeedMoreIssues={handleSeedMoreIssues}
-            onExportJson={handleExportJson}
+            onFilterChange={setActiveFilters}
+            totalIssues={issues.length}
+            myIssuesCount={myIssuesCount}
+            urgentCount={urgentCount}
+            completedPoints={completedPoints}
+            totalPoints={totalPoints}
+            labels={allLabels}
+            onOpenCreateIssue={() => handleOpenCreateIssue('todo')}
           />
 
-          {/* Board or Virtualized List View */}
-          <main className="flex-1 flex flex-col overflow-y-auto">
-            {currentView === 'board' ? (
-              <BoardView
-                issuesByStatus={filteredIssuesByStatus}
-                onSelectIssue={handleSelectIssue}
-                onMoveIssue={moveIssue}
-                onOpenCreateWithStatus={(status) => handleOpenCreateIssue(status, true)}
-                hideBacklog={activeFilters.view === 'cycle'}
-              />
-            ) : (
-              <ListView
-                issues={filteredIssues}
-                onSelectIssue={handleSelectIssue}
-                onUpdateStatus={(id, newStatus) => updateIssue(id, { status: newStatus })}
-              />
-            )}
-          </main>
+          {/* Content Column: Filter Bar + Views */}
+          <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+            {/* Filter Sub-header */}
+            <FilterBar
+              activeFilters={activeFilters}
+              onClearFilters={() => setActiveFilters({ view: 'all' })}
+              onRemoveFilter={(key) =>
+                setActiveFilters((prev) => ({ ...prev, [key]: undefined }))
+              }
+              filteredCount={filteredIssues.length}
+              totalCount={issues.length}
+              onSeedMoreIssues={handleSeedMoreIssues}
+              onExportJson={handleExportJson}
+            />
+
+            {/* Board or Virtualized List View */}
+            <main className="flex-1 flex flex-col overflow-y-auto">
+              {currentView === 'board' ? (
+                <BoardView
+                  issuesByStatus={filteredIssuesByStatus}
+                  onSelectIssue={handleSelectIssue}
+                  onMoveIssue={moveIssue}
+                  onOpenCreateWithStatus={(status) => handleOpenCreateIssue(status, true)}
+                  hideBacklog={activeFilters.view === 'cycle'}
+                />
+              ) : (
+                <ListView
+                  issues={filteredIssues}
+                  onSelectIssue={handleSelectIssue}
+                  onUpdateStatus={(id, newStatus) => updateIssue(id, { status: newStatus })}
+                />
+              )}
+            </main>
+          </div>
         </div>
+
+        {/* Cmd+K Command Palette */}
+        <CommandPalette
+          isOpen={isCommandPaletteOpen}
+          onClose={() => setIsCommandPaletteOpen(false)}
+          issues={issues}
+          onSelectIssue={handleSelectIssue}
+          onOpenCreateIssue={() => handleOpenCreateIssue('todo', false)}
+          onViewChange={setCurrentView}
+        />
+
+        {/* CRDT Sync Telemetry Modal */}
+        <SyncTelemetryModal
+          isOpen={isTelemetryOpen}
+          onClose={() => setIsTelemetryOpen(false)}
+        />
+
+        {/* Issue Create / Edit Modal */}
+        <IssueDetailModal
+          isOpen={isIssueModalOpen}
+          onClose={() => {
+            setIsIssueModalOpen(false);
+            setSelectedIssue(null);
+          }}
+          issue={selectedIssue}
+          initialStatus={selectedIssue ? selectedIssue.status : initialStatusForNew}
+          isStatusLocked={isStatusLocked}
+          onSave={handleSaveIssue}
+          onDelete={deleteIssue}
+          onFocusIssue={setActiveIssueFocus}
+        />
       </div>
-
-      {/* Cmd+K Command Palette */}
-      <CommandPalette
-        isOpen={isCommandPaletteOpen}
-        onClose={() => setIsCommandPaletteOpen(false)}
-        issues={issues}
-        onSelectIssue={handleSelectIssue}
-        onOpenCreateIssue={() => handleOpenCreateIssue('todo', false)}
-        onViewChange={setCurrentView}
-      />
-
-      {/* CRDT Sync Telemetry Modal */}
-      <SyncTelemetryModal
-        isOpen={isTelemetryOpen}
-        onClose={() => setIsTelemetryOpen(false)}
-      />
-
-      {/* Issue Create / Edit Modal */}
-      <IssueDetailModal
-        isOpen={isIssueModalOpen}
-        onClose={() => {
-          setIsIssueModalOpen(false);
-          setSelectedIssue(null);
-        }}
-        issue={selectedIssue}
-        initialStatus={selectedIssue ? selectedIssue.status : initialStatusForNew}
-        isStatusLocked={isStatusLocked}
-        onSave={handleSaveIssue}
-        onDelete={deleteIssue}
-        onFocusIssue={setActiveIssueFocus}
-      />
-    </div>
+    </DeviceGuard>
   );
 }
 

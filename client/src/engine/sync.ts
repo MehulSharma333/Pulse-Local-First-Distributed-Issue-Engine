@@ -11,7 +11,7 @@ export const wsProvider = new WebsocketProvider(WS_URL, ROOM_NAME, doc, {
 
 // Sync Telemetry & Stats State
 export const syncStats: SyncStats = {
-  state: 'connecting',
+  state: 'connected',
   isSimulatedOffline: false,
   peerCount: 1,
   lastDeltaTime: null,

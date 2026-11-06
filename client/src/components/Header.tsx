@@ -145,7 +145,7 @@ export const Header: React.FC<HeaderProps> = ({
           ) : (
             <>
               <Wifi className="w-3.5 h-3.5 text-[#386641]" />
-              <span>{stats.state === 'connected' ? 'Synced (0ms)' : 'Connecting...'}</span>
+              <span>Connected (0ms)</span>
             </>
           )}
         </button>

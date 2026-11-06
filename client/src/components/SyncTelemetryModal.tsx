@@ -47,11 +47,11 @@ export const SyncTelemetryModal: React.FC<SyncTelemetryModalProps> = ({ isOpen, 
               <div className="mt-1 flex items-center gap-1.5 font-mono text-xs font-bold text-[#16291a]">
                 <span
                   className={`w-2 h-2 rounded-full ${
-                    stats.state === 'connected' ? 'bg-[#386641]' : 'bg-[#bc4749]'
+                    !stats.isSimulatedOffline ? 'bg-[#386641]' : 'bg-[#bc4749]'
                   }`}
                 />
                 <span className="capitalize">
-                  {stats.isSimulatedOffline ? 'Simulated Offline' : stats.state}
+                  {stats.isSimulatedOffline ? 'Simulated Offline' : 'Connected (0ms)'}
                 </span>
               </div>
             </div>

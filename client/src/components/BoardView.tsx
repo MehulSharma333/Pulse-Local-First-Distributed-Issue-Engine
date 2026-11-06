@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { 
   Circle, 
   Clock, 
   CheckCircle2, 
   HelpCircle, 
   Plus, 
-  Flame,
-  ArrowUp,
-  ArrowRight,
-  Minus
+  Flame, 
+  ArrowUp, 
+  ArrowRight, 
+  Minus 
 } from 'lucide-react';
 import type { Issue, IssueStatus, IssuePriority } from '../types/issue';
 import { usePresence } from '../hooks/usePresence';
@@ -96,19 +96,78 @@ export const BoardView: React.FC<BoardViewProps> = ({
   const { peers } = usePresence();
   const [draggedIssueId, setDraggedIssueId] = useState<string | null>(null);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRafId = useRef<number | null>(null);
+  const scrollVelocity = useRef<number>(0);
+
   const displayedColumns = hideBacklog ? COLUMNS.filter((c) => c.id !== 'backlog') : COLUMNS;
+
+  // Stop auto-scroll loop
+  const stopAutoScroll = useCallback(() => {
+    scrollVelocity.current = 0;
+    if (scrollRafId.current !== null) {
+      cancelAnimationFrame(scrollRafId.current);
+      scrollRafId.current = null;
+    }
+  }, []);
+
+  // Continuous auto-scroll loop via requestAnimationFrame (smooth 60fps)
+  const startAutoScroll = useCallback(() => {
+    if (scrollRafId.current !== null) return;
+
+    const scrollLoop = () => {
+      if (containerRef.current && scrollVelocity.current !== 0) {
+        containerRef.current.scrollLeft += scrollVelocity.current;
+        scrollRafId.current = requestAnimationFrame(scrollLoop);
+      } else {
+        scrollRafId.current = null;
+      }
+    };
+
+    scrollRafId.current = requestAnimationFrame(scrollLoop);
+  }, []);
+
+  // Handle dragover across the board container to detect edges and auto-scroll
+  const handleBoardDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    if (!containerRef.current || !draggedIssueId) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const mouseX = e.clientX;
+    const EDGE_ZONE = 180; // Distance in pixels from viewport edge to start auto-scroll
+    const MAX_SPEED = 30;  // Maximum scroll pixels per frame
+
+    // Left edge proximity
+    if (mouseX < rect.left + EDGE_ZONE && mouseX >= rect.left - 50) {
+      const distance = Math.max(0, mouseX - rect.left);
+      const intensity = (EDGE_ZONE - distance) / EDGE_ZONE;
+      scrollVelocity.current = -Math.round(Math.max(5, intensity * MAX_SPEED));
+      startAutoScroll();
+    }
+    // Right edge proximity
+    else if (mouseX > rect.right - EDGE_ZONE && mouseX <= rect.right + 50) {
+      const distance = Math.max(0, rect.right - mouseX);
+      const intensity = (EDGE_ZONE - distance) / EDGE_ZONE;
+      scrollVelocity.current = Math.round(Math.max(5, intensity * MAX_SPEED));
+      startAutoScroll();
+    } else {
+      stopAutoScroll();
+    }
+  }, [draggedIssueId, startAutoScroll, stopAutoScroll]);
 
   const handleDragStart = (e: React.DragEvent, id: string) => {
     e.dataTransfer.setData('text/plain', id);
     setDraggedIssueId(id);
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
+  const handleDragEnd = useCallback(() => {
+    stopAutoScroll();
+    setDraggedIssueId(null);
+  }, [stopAutoScroll]);
 
   const handleDrop = (e: React.DragEvent, targetStatus: IssueStatus) => {
     e.preventDefault();
+    stopAutoScroll();
     const issueId = e.dataTransfer.getData('text/plain') || draggedIssueId;
     if (issueId) {
       const targetList = issuesByStatus[targetStatus] || [];
@@ -118,15 +177,30 @@ export const BoardView: React.FC<BoardViewProps> = ({
     setDraggedIssueId(null);
   };
 
+  // Clean up RAF on unmount
+  useEffect(() => {
+    return () => {
+      stopAutoScroll();
+    };
+  }, [stopAutoScroll]);
+
   return (
-    <div className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-gradient-to-br from-[#faf6ec] via-[#f4edd9]/50 to-[#edf4dd]/60">
+    <div
+      ref={containerRef}
+      onDragOver={handleBoardDragOver}
+      onDragLeave={stopAutoScroll}
+      className="flex-1 p-6 overflow-x-auto flex gap-5 items-start min-h-[calc(100vh-65px)] bg-gradient-to-br from-[#faf6ec] via-[#f4edd9]/50 to-[#edf4dd]/60 select-none"
+    >
       {displayedColumns.map((column) => {
         const columnIssues = issuesByStatus[column.id] || [];
 
         return (
           <div
             key={column.id}
-            onDragOver={handleDragOver}
+            onDragOver={(e) => {
+              e.preventDefault();
+              handleBoardDragOver(e);
+            }}
             onDrop={(e) => handleDrop(e, column.id)}
             className="w-80 shrink-0 flex flex-col max-h-[calc(100vh-100px)] rounded-2xl bg-[#fcfaf5] border border-[#d2e6d6] shadow-xl backdrop-blur-sm transition-all"
           >
@@ -170,6 +244,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                       key={issue.id}
                       draggable
                       onDragStart={(e) => handleDragStart(e, issue.id)}
+                      onDragEnd={handleDragEnd}
                       onClick={() => onSelectIssue(issue)}
                       className={`group relative p-4 rounded-xl bg-white hover:bg-[#fcfaf5] border cursor-grab active:cursor-grabbing transition-all shadow-xs hover:shadow-md hover:border-[#6a994e] ${
                         viewingPeers.length > 0
@@ -194,7 +269,7 @@ export const BoardView: React.FC<BoardViewProps> = ({
                       </div>
 
                       {/* Title */}
-                      <h4 className="text-xs font-normal text-[#16291a] line-clamp-2 leading-relaxed">
+                      <h4 className="text-xs font-semibold text-[#16291a] line-clamp-2 leading-relaxed">
                         {issue.title}
                       </h4>
 
@@ -222,7 +297,20 @@ export const BoardView: React.FC<BoardViewProps> = ({
                           <span />
                         )}
 
-                       
+                        {issue.assignee ? (
+                          <div
+                            title={issue.assignee.name}
+                            className="w-5 h-5 rounded-full overflow-hidden ring-2 ring-[#d2e6d6]"
+                          >
+                            <img
+                              src={issue.assignee.avatar}
+                              alt={issue.assignee.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <span className="text-[10px] text-[#6a994e] italic">Unassigned</span>
+                        )}
                       </div>
                     </div>
                   );
